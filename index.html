@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>엄성원 교수 | 부산외국어대학교</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gold: {
+              DEFAULT: '#a8842c',
+              light: '#c9a84c',
+              dim: 'rgba(168,132,44,0.12)',
+            },
+            charcoal: '#2b2b33',
+            surface: 'rgba(255,255,255,0.8)',
+            glass: 'rgba(255,255,255,0.75)',
+          },
+          fontFamily: {
+            sans: ['Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    /* things Tailwind CDN can't express cleanly */
+    /* layered warm-ivory base: vertical gradient + fixed ambient glows for depth */
+    body {
+      background-color: #faf8f3;
+      background-image:
+        radial-gradient(900px 500px at 50% -8%, rgba(168,132,44,0.07), transparent 60%),
+        radial-gradient(800px 600px at 92% 18%, rgba(120,140,180,0.05), transparent 60%),
+        radial-gradient(700px 600px at 6% 78%, rgba(168,132,44,0.05), transparent 60%),
+        linear-gradient(180deg, #faf8f3 0%, #f6f2e9 48%, #f3efe6 100%);
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+    }
+
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(168,132,44,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(168,132,44,0.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .glow {
+      background: radial-gradient(ellipse, rgba(168,132,44,0.1) 0%, transparent 70%);
+    }
+
+    .glass {
+      background: rgba(255,255,255,0.78);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(43,43,51,0.08);
+      box-shadow: 0 1px 3px rgba(43,43,51,0.04), 0 8px 28px rgba(120,100,60,0.09), inset 0 1px 0 rgba(255,255,255,0.9);
+    }
+
+    .nav-glass {
+      background: rgba(250,248,243,0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(43,43,51,0.07);
+    }
+    /* nav shrinks after scrolling */
+    #navbar.nav-compact { padding-top: 0.5rem; padding-bottom: 0.5rem; background: rgba(250,248,243,0.95); }
+
+    .fcard {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(43,43,51,0.09);
+      box-shadow: 0 2px 6px rgba(43,43,51,0.05), 0 14px 36px rgba(120,100,60,0.12), inset 0 1px 0 rgba(255,255,255,0.95);
+    }
+
+    /* alternating section tint for subtle tonal separation.
+       box-shadow spread + clip-path makes the band full-bleed even though
+       the section itself is a centered max-w container. */
+    .section-tint {
+      position: relative;
+      background: rgba(168,132,44,0.035);
+      box-shadow: 0 0 0 100vmax rgba(168,132,44,0.035);
+      clip-path: inset(0 -100vmax);
+    }
+    .section-tint::before,
+    .section-tint::after {
+      content: ""; position: absolute; left: -100vmax; right: -100vmax; height: 1px;
+      background: rgba(43,43,51,0.06);
+    }
+    .section-tint::before { top: 0; }
+    .section-tint::after  { bottom: 0; }
+
+    /* strip separator */
+    .border-dim { border-color: rgba(43,43,51,0.09); }
+
+    /* pub item hover slide */
+    .pub-item { transition: transform 0.2s, border-color 0.2s; }
+    .pub-item:hover { transform: translateX(4px); border-color: rgba(168,132,44,0.4); }
+
+    .card-hover { transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; }
+    .card-hover:hover {
+      transform: translateY(-3px);
+      border-color: rgba(168,132,44,0.45);
+      box-shadow: 0 4px 10px rgba(43,43,51,0.06), 0 18px 44px rgba(120,100,60,0.16), inset 0 1px 0 rgba(255,255,255,0.95);
+    }
+
+    /* nav link active */
+    .nav-link.active { color: #2b2b33; background: rgba(168,132,44,0.12); }
+
+    /* scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #f3efe6; }
+    ::-webkit-scrollbar-thumb { background: rgba(168,132,44,0.45); border-radius: 99px; }
+
+    /* scroll progress bar */
+    #scrollProgress {
+      position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+      background: linear-gradient(90deg, #a8842c, #c9a84c);
+      z-index: 60; pointer-events: none;
+    }
+
+    /* research interest tag */
+    .tag {
+      background: rgba(168,132,44,0.1);
+      border: 1px solid rgba(168,132,44,0.3);
+      color: #8a6a1f;
+      border-radius: 9999px;
+      padding: 4px 16px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    /* tabs & filter chips */
+    .tab-btn { color: #64748b; background: rgba(43,43,51,0.04); border: 1px solid rgba(43,43,51,0.1); }
+    .tab-btn:hover { color: #2b2b33; background: rgba(43,43,51,0.08); }
+    .active-tab { background: rgba(168,132,44,0.12) !important; border-color: rgba(168,132,44,0.4) !important; color: #8a6a1f !important; }
+
+    /* badges */
+    .year-badge {
+      background: rgba(168,132,44,0.12);
+      border: 1px solid rgba(168,132,44,0.3);
+      color: #8a6a1f;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 8px;
+      white-space: nowrap;
+    }
+    .kci-badge {
+      background: rgba(59,130,246,0.1);
+      border: 1px solid rgba(59,130,246,0.3);
+      color: #1d4ed8;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 1px 8px;
+      border-radius: 9999px;
+    }
+    .scopus-badge {
+      background: rgba(34,197,94,0.1);
+      border: 1px solid rgba(34,197,94,0.3);
+      color: #15803d;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 1px 8px;
+      border-radius: 9999px;
+    }
+    .intl-badge {
+      background: rgba(251,146,60,0.12);
+      border: 1px solid rgba(251,146,60,0.35);
+      color: #c2570c;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 1px 8px;
+      border-radius: 9999px;
+    }
+
+    /* course pills */
+    .req-pill  { font-size:.7rem; font-weight:700; padding:2px 10px; border-radius:9999px; background:rgba(168,132,44,0.12); border:1px solid rgba(168,132,44,0.3); color:#8a6a1f; }
+    .sel-pill  { font-size:.7rem; font-weight:700; padding:2px 10px; border-radius:9999px; background:rgba(100,116,139,0.08); border:1px solid rgba(100,116,139,0.25); color:#475569; }
+    .base-pill { font-size:.7rem; font-weight:700; padding:2px 10px; border-radius:9999px; background:rgba(34,197,94,0.1); border:1px solid rgba(34,197,94,0.3); color:#15803d; }
+    .pre-pill  { font-size:.7rem; font-weight:700; padding:2px 10px; border-radius:9999px; background:rgba(168,85,247,0.1); border:1px solid rgba(168,85,247,0.3); color:#7e22ce; }
+
+    .career-year {
+      background: rgba(168,132,44,0.1);
+      border: 1px solid rgba(168,132,44,0.28);
+      color: #8a6a1f;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 8px;
+      white-space: nowrap;
+      min-width: 56px;
+      text-align: center;
+    }
+
+    /* hero gold shimmer */
+    .shimmer {
+      background: linear-gradient(90deg, #a8842c 0%, #d9b35c 25%, #a8842c 50%, #d9b35c 75%, #a8842c 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: shimmer 4s linear infinite;
+    }
+    @keyframes shimmer { to { background-position: -200% center; } }
+
+    /* floating cards gentle drift — `translate` keeps Tailwind transform classes (e.g. -translate-x-1/2) intact */
+    @keyframes floaty { 0%,100% { translate: 0 0; } 50% { translate: 0 -8px; } }
+    .float-anim   { animation: floaty 6s ease-in-out infinite; }
+    .float-anim-2 { animation: floaty 7s ease-in-out 0.8s infinite; }
+    .float-anim-3 { animation: floaty 6.5s ease-in-out 1.6s infinite; }
+    .float-anim-4 { animation: floaty 7.5s ease-in-out 0.4s infinite; }
+    .float-anim-5 { animation: floaty 6.8s ease-in-out 1.2s infinite; }
+
+    /* scholar profile link buttons */
+    .scholar-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 7px 16px; border-radius: 9999px;
+      font-size: 0.8rem; font-weight: 600;
+      color: #475569;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(43,43,51,0.12);
+      transition: all 0.2s;
+    }
+    .scholar-link:hover { color: #8a6a1f; border-color: rgba(168,132,44,0.45); background: rgba(168,132,44,0.08); }
+
+    /* search input */
+    .pub-search {
+      background: rgba(255,255,255,0.8);
+      border: 1px solid rgba(43,43,51,0.12);
+      color: #2b2b33;
+      border-radius: 9999px;
+      padding: 10px 18px 10px 42px;
+      font-size: 0.875rem;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .pub-search:focus { border-color: rgba(168,132,44,0.5); }
+    .pub-search::placeholder { color: #94a3b8; }
+
+    /* publication show-more toggle */
+    #pubMore {
+      background: rgba(168,132,44,0.1);
+      border: 1px solid rgba(168,132,44,0.35);
+      color: #8a6a1f;
+    }
+    #pubMore:hover { background: rgba(168,132,44,0.18); border-color: rgba(168,132,44,0.5); }
+
+    /* year group header */
+    .year-head {
+      display: flex; align-items: center; gap: 12px;
+      margin: 28px 0 12px;
+    }
+    .year-head:first-child { margin-top: 0; }
+    .year-head .yh-label { font-size: 1rem; font-weight: 800; color: #8a6a1f; letter-spacing: -0.01em; }
+    .year-head .yh-line { flex: 1; height: 1px; background: rgba(168,132,44,0.25); }
+    .year-head .yh-count { font-size: 0.7rem; color: #94a3b8; }
+
+    /* rendered list entrance */
+    @keyframes fadeUp { from { opacity: 0; translate: 0 12px; } to { opacity: 1; translate: 0 0; } }
+    .anim-in { animation: fadeUp 0.4s ease both; }
+
+    /* back to top */
+    #backToTop {
+      position: fixed; right: 1.5rem; bottom: 1.5rem; z-index: 50;
+      width: 44px; height: 44px; border-radius: 9999px;
+      background: rgba(168,132,44,0.12);
+      border: 1px solid rgba(168,132,44,0.45);
+      color: #8a6a1f;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transform: translateY(8px);
+      transition: opacity 0.3s, transform 0.3s, background 0.2s;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    #backToTop.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    #backToTop:hover { background: rgba(168,132,44,0.25); }
+
+    /* avatar */
+    .avatar {
+      position: relative; overflow: hidden;
+      width: 120px; height: 120px; border-radius: 9999px;
+      background: linear-gradient(135deg, rgba(168,132,44,0.3), rgba(168,132,44,0.08));
+      border: 2px solid rgba(168,132,44,0.5);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .avatar .initial { font-size: 2.5rem; font-weight: 800; color: #8a6a1f; }
+    .avatar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+    /* gallery */
+    .gallery-card { overflow: hidden; cursor: pointer; }
+    .gallery-card img { transition: transform 0.35s ease; }
+    .gallery-card:hover img { transform: scale(1.04); }
+    .gallery-ph {
+      height: 14rem;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+      background: linear-gradient(135deg, rgba(168,132,44,0.14), rgba(168,132,44,0.03));
+      color: rgba(138,106,31,0.65);
+      cursor: default;
+    }
+    .gtag-badge {
+      font-size: 0.68rem; font-weight: 700; padding: 2px 10px; border-radius: 9999px;
+      background: rgba(168,132,44,0.1); border: 1px solid rgba(168,132,44,0.3); color: #8a6a1f;
+    }
+
+    /* accessibility: respect reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .shimmer, .float-anim, .float-anim-2, .float-anim-3, .float-anim-4, .float-anim-5, .anim-in { animation: none !important; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body class="text-slate-800 antialiased">
+
+<div id="scrollProgress"></div>
+
+<!-- ═══ NAV ═══ -->
+<nav id="navbar" class="nav-glass fixed top-0 inset-x-0 z-50 flex items-center justify-between px-8 lg:px-14 py-4 transition-all duration-300">
+  <a href="#hero">
+    <img src="bufs-logo.png" alt="부산외국어대학교" class="h-10 w-auto">
+  </a>
+
+  <!-- Center links -->
+  <div class="hidden md:flex items-center gap-1 rounded-full px-2 py-1.5"
+       style="background:rgba(43,43,51,0.04); border:1px solid rgba(43,43,51,0.08)">
+    <a href="#about"    class="nav-link px-4 py-1.5 rounded-full text-sm font-medium text-slate-500 hover:text-slate-900 hover:bg-charcoal/5 transition-all">소개</a>
+    <a href="#research" class="nav-link px-4 py-1.5 rounded-full text-sm font-medium text-slate-500 hover:text-slate-900 hover:bg-charcoal/5 transition-all">연구실적</a>
+    <a href="#teaching" class="nav-link px-4 py-1.5 rounded-full text-sm font-medium text-slate-500 hover:text-slate-900 hover:bg-charcoal/5 transition-all">강의실적</a>
+    <a href="#gallery"  class="nav-link px-4 py-1.5 rounded-full text-sm font-medium text-slate-500 hover:text-slate-900 hover:bg-charcoal/5 transition-all">활동</a>
+    <a href="#career"   class="nav-link px-4 py-1.5 rounded-full text-sm font-medium text-slate-500 hover:text-slate-900 hover:bg-charcoal/5 transition-all">주요경력</a>
+    <a href="#contact"  class="nav-link px-4 py-1.5 rounded-full text-sm font-medium text-slate-500 hover:text-slate-900 hover:bg-charcoal/5 transition-all">연락처</a>
+  </div>
+
+  <!-- Actions -->
+  <div class="flex items-center gap-2">
+    <a href="mailto:sweum@bufs.ac.kr"
+       class="hidden sm:inline-block px-5 py-2 rounded-full text-sm font-semibold border border-slate-300 text-slate-700 hover:bg-charcoal/5 transition-all">
+      이메일 문의
+    </a>
+    <a href="#contact"
+       class="px-5 py-2 rounded-full text-sm font-semibold bg-gold text-white hover:bg-gold-light transition-all">
+      연구실 방문
+    </a>
+    <!-- Mobile hamburger -->
+    <button id="mobileMenu" class="md:hidden ml-2 text-slate-500 hover:text-slate-900" aria-label="메뉴 열기">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div id="mobileNav" class="hidden fixed top-[65px] inset-x-0 z-40 flex flex-col gap-1 p-4 nav-glass md:hidden">
+  <a href="#about"    class="px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-charcoal/5 transition-all">소개</a>
+  <a href="#research" class="px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-charcoal/5 transition-all">연구실적</a>
+  <a href="#teaching" class="px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-charcoal/5 transition-all">강의실적</a>
+  <a href="#gallery"  class="px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-charcoal/5 transition-all">활동</a>
+  <a href="#career"   class="px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-charcoal/5 transition-all">주요경력</a>
+  <a href="#contact"  class="px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-charcoal/5 transition-all">연락처</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero" class="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden px-6 pt-28 pb-20 grid-bg">
+  <!-- Glow -->
+  <div class="glow absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[400px] pointer-events-none"></div>
+
+  <!-- Tag -->
+  <div class="relative z-10 inline-block mb-7 px-5 py-1.5 rounded-full text-xs font-bold tracking-widest text-gold uppercase"
+       style="border:1px solid rgba(168,132,44,0.45); background:rgba(168,132,44,0.08)">
+    부산외국어대학교 · 국제마케팅전공
+  </div>
+
+  <!-- Headline -->
+  <h1 class="relative z-10 text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tighter leading-[1.08] mb-6">
+    AI와 데이터로 여는<br>마케팅의 <span class="shimmer">미래</span>
+  </h1>
+
+  <!-- Sub -->
+  <p class="relative z-10 text-base text-slate-500 max-w-md mb-8 leading-relaxed">
+    인공지능과 빅데이터 분석으로 소비자의 마음을 읽고,<br>
+    AI 시대를 이끌어갈 글로벌 마케팅 인재를 키웁니다.
+  </p>
+
+  <!-- CTA -->
+  <div class="relative z-10 flex flex-wrap gap-3 justify-center mb-6">
+    <a href="#research"
+       class="px-7 py-3 rounded-full font-semibold bg-gold text-white hover:bg-gold-light transition-all text-sm shadow-lg shadow-yellow-900/20">
+      연구실적 보기
+    </a>
+    <a href="#contact"
+       class="px-7 py-3 rounded-full font-semibold border border-slate-300 text-slate-700 hover:bg-charcoal/5 transition-all text-sm">
+      연락처 안내
+    </a>
+  </div>
+
+  <!-- Scholar profile links -->
+  <!-- TODO: 실제 프로필 URL로 교체 필요 (Google Scholar / ORCID / KRI) -->
+  <div class="relative z-10 flex flex-wrap gap-2 justify-center mb-14">
+    <a href="#" class="scholar-link" target="_blank" rel="noopener">
+      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zm-7 9.18v4L12 21l7-3.82v-4L12 17l-7-4.82z"/></svg>
+      Google Scholar
+    </a>
+    <a href="#" class="scholar-link" target="_blank" rel="noopener">
+      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM8.6 17H7.1V9.6h1.5V17zm-.75-8.4a.95.95 0 1 1 0-1.9.95.95 0 0 1 0 1.9zm6.05 8.4h-1.5V9.6h1.44v1h.02c.3-.55 1.04-1.13 2.14-1.13 2.29 0 2.71 1.5 2.71 3.46V17h-1.5v-3.78c0-.9-.02-2.06-1.26-2.06-1.26 0-1.45.98-1.45 2V17z"/></svg>
+      ORCID
+    </a>
+    <a href="#" class="scholar-link" target="_blank" rel="noopener">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+      KRI 연구자정보
+    </a>
+    <a href="mailto:sweum@bufs.ac.kr" class="scholar-link">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 0 0 2.22 0L21 8M5 19h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2z"/></svg>
+      이메일
+    </a>
+  </div>
+
+  <!-- Floating stat cards -->
+  <div class="relative z-10 w-full max-w-4xl hidden lg:block" style="height:380px">
+    <!-- Card 1: Papers -->
+    <div class="fcard float-anim absolute left-0 top-5 w-48 rounded-2xl p-5">
+      <p class="text-xs text-slate-500 mb-2">발표 논문 수</p>
+      <p class="text-4xl font-extrabold tracking-tight"><span data-stat="totalPapers" data-countup>0</span><span class="text-base text-slate-500 font-normal">편</span></p>
+      <p class="text-xs text-gold mt-2">↑ KCI / SCI 포함</p>
+    </div>
+
+    <!-- Card 2: Current semester -->
+    <div class="fcard float-anim-2 absolute left-1/2 -translate-x-1/2 top-0 w-56 rounded-2xl p-5 text-center">
+      <p class="text-xs text-slate-500 mb-2 flex items-center justify-center gap-1.5">
+        <span class="inline-block w-2 h-2 rounded-full bg-green-500 shadow-[0_0_6px_#22c55e]"></span>현재 강의 중
+      </p>
+      <p class="text-xl font-bold">2026학년도 1학기</p>
+      <p class="text-xs text-gold mt-1">마케팅원론, 마케팅커뮤니케이션</p>
+    </div>
+
+    <!-- Card 3: Projects -->
+    <div class="fcard float-anim-3 absolute right-0 top-5 w-56 rounded-2xl p-5">
+      <p class="text-xs text-slate-500 mb-2">연구 프로젝트</p>
+      <p class="text-4xl font-extrabold tracking-tight"><span data-stat="totalProjects" data-countup>0</span><span class="text-base text-slate-500 font-normal">건</span></p>
+      <p class="text-[11px] text-gold mt-2 whitespace-nowrap">한국연구재단 · 정석물류학술재단</p>
+    </div>
+
+    <!-- Card 4: Interests -->
+    <div class="fcard float-anim-4 absolute left-16 bottom-0 w-56 rounded-2xl p-5">
+      <p class="text-xs text-slate-500 mb-3">연구 관심분야</p>
+      <ul class="space-y-1.5">
+        <li class="flex items-center gap-2 text-xs"><span class="w-1.5 h-1.5 rounded-full bg-gold flex-shrink-0"></span><span class="font-semibold">소비자행동</span></li>
+        <li class="flex items-center gap-2 text-xs"><span class="w-1.5 h-1.5 rounded-full bg-gold flex-shrink-0"></span><span class="font-semibold">국제브랜드관리</span></li>
+        <li class="flex items-center gap-2 text-xs"><span class="w-1.5 h-1.5 rounded-full bg-gold flex-shrink-0"></span><span class="font-semibold">AI(인공지능)</span></li>
+        <li class="flex items-center gap-2 text-xs"><span class="w-1.5 h-1.5 rounded-full bg-gold flex-shrink-0"></span><span class="font-semibold">디지털마케팅</span></li>
+        <li class="flex items-center gap-2 text-xs"><span class="w-1.5 h-1.5 rounded-full bg-gold flex-shrink-0"></span><span class="font-semibold">빅데이터분석</span></li>
+      </ul>
+    </div>
+
+    <!-- Card 5: Students -->
+    <div class="fcard float-anim-5 absolute right-16 bottom-0 w-44 rounded-2xl p-5">
+      <p class="text-xs text-slate-500 mb-2">지도 학생</p>
+      <p class="text-4xl font-extrabold tracking-tight"><span data-countup data-target="66">0</span><span class="text-base text-slate-500 font-normal">명</span></p>
+      <p class="text-xs text-gold mt-2">학부 · 대학원 통합</p>
+    </div>
+  </div>
+
+  <!-- Mobile mini stats -->
+  <div class="grid grid-cols-3 gap-3 w-full max-w-sm lg:hidden mt-4">
+    <div class="fcard rounded-2xl p-4 text-center">
+      <p class="text-2xl font-extrabold text-gold"><span data-stat="totalPapers" data-countup>0</span></p>
+      <p class="text-xs text-slate-500 mt-1">논문</p>
+    </div>
+    <div class="fcard rounded-2xl p-4 text-center">
+      <p class="text-2xl font-extrabold text-gold"><span data-stat="totalProjects" data-countup>0</span></p>
+      <p class="text-xs text-slate-500 mt-1">프로젝트</p>
+    </div>
+    <div class="fcard rounded-2xl p-4 text-center">
+      <p class="text-2xl font-extrabold text-gold"><span data-countup data-target="66">0</span></p>
+      <p class="text-xs text-slate-500 mt-1">지도학생</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ ABOUT ═══ -->
+<section id="about" class="max-w-5xl mx-auto px-6 py-20">
+  <p class="text-xs font-bold tracking-widest text-gold uppercase mb-3">Professor Profile</p>
+  <h2 class="text-3xl lg:text-4xl font-extrabold tracking-tight mb-3">교수 소개</h2>
+  <p class="text-slate-500 text-sm mb-12 max-w-xl">국제마케팅분야에서 소비자행동과 국제브랜드관리를 주로 연구하고 있으며, 데이터분석 및 인공지능(AI)분야에도 많은 관심과 연구를 하고 있습니다.</p>
+
+  <!-- Profile card -->
+  <div class="glass rounded-2xl p-7 card-hover mb-4 flex flex-col sm:flex-row items-center sm:items-start gap-6">
+    <div class="avatar">
+      <span class="initial">엄</span>
+      <!-- photo.jpg 파일을 폴더에 넣으면 자동으로 사진이 표시됩니다 -->
+      <img src="photo.jpg" alt="엄성원 교수" onerror="this.remove()">
+    </div>
+    <div class="text-center sm:text-left flex-1">
+      <h3 class="text-2xl font-extrabold tracking-tight mb-1">엄성원 <span class="text-base font-semibold text-slate-500">교수</span></h3>
+      <p class="text-sm text-gold mb-3">부산외국어대학교 국제마케팅전공 · 입학홍보처장</p>
+      <p class="text-sm text-slate-500 leading-relaxed mb-4">마케팅 애널리틱스와 텍스트마이닝 기법으로 소비자의 목소리를 데이터에서 읽어내는 연구를 하고 있습니다. 한국연구재단·정석물류학술재단 과제를 수행하며 KCI·SCI급 학술지에 44편의 논문을 발표했습니다.</p>
+      <!-- TODO: 실제 프로필 URL로 교체 필요 -->
+      <div class="flex flex-wrap gap-2 justify-center sm:justify-start">
+        <a href="#" class="scholar-link" target="_blank" rel="noopener">Google Scholar</a>
+        <a href="#" class="scholar-link" target="_blank" rel="noopener">ORCID</a>
+        <a href="#" class="scholar-link" target="_blank" rel="noopener">KRI 연구자정보</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-4">
+    <!-- Basic info -->
+    <div class="glass rounded-2xl p-7 card-hover">
+      <p class="text-xs font-bold tracking-widest text-gold uppercase mb-5">기본 정보</p>
+      <dl class="space-y-3.5">
+        <div class="flex gap-4"><dt class="text-xs text-slate-500 w-20 pt-0.5">성명</dt><dd class="text-sm">엄성원</dd></div>
+        <div class="flex gap-4"><dt class="text-xs text-slate-500 w-20 pt-0.5">직위</dt><dd class="text-sm">교수</dd></div>
+        <div class="flex gap-4"><dt class="text-xs text-slate-500 w-20 pt-0.5">소속</dt><dd class="text-sm">부산외국어대학교 국제마케팅전공</dd></div>
+        <div class="flex gap-4"><dt class="text-xs text-slate-500 w-20 pt-0.5">최종학력</dt><dd class="text-sm">부산대학교 경영학 박사</dd></div>
+      </dl>
+    </div>
+
+    <!-- Contact -->
+    <div class="glass rounded-2xl p-7 card-hover">
+      <p class="text-xs font-bold tracking-widest text-gold uppercase mb-5">연락처</p>
+      <dl class="space-y-3.5">
+        <div class="flex gap-4"><dt class="text-xs text-slate-500 w-20 pt-0.5">연구실</dt><dd class="text-sm">트리니티홀(D) 613</dd></div>
+        <div class="flex gap-4"><dt class="text-xs text-slate-500 w-20 pt-0.5">이메일</dt><dd class="text-sm">sweum@bufs.ac.kr</dd></div>
+        <div class="flex gap-4"><dt class="text-xs text-slate-500 w-20 pt-0.5">전화</dt><dd class="text-sm">051-509-6058</dd></div>
+        <div class="flex gap-4"><dt class="text-xs text-slate-500 w-20 pt-0.5">상담시간</dt><dd class="text-sm">화 14:00–16:00 · 목 10:00–12:00</dd></div>
+      </dl>
+    </div>
+
+    <!-- Activity highlights -->
+    <div class="glass rounded-2xl p-7 card-hover">
+      <p class="text-xs font-bold tracking-widest text-gold uppercase mb-5">주요 활동</p>
+      <div class="space-y-4">
+        <div class="flex gap-4 items-start">
+          <span class="career-year shrink-0">2026–</span>
+          <div>
+            <p class="text-sm font-semibold">부울경 입학홍보처장(본부장) 협의회 회장</p>
+            <p class="text-xs text-slate-500 mt-0.5">현직</p>
+          </div>
+        </div>
+        <div class="flex gap-4 items-start">
+          <span class="career-year shrink-0">2025–</span>
+          <div>
+            <p class="text-sm font-semibold">입학홍보처장</p>
+            <p class="text-xs text-slate-500 mt-0.5">부산외국어대학교 · 현직</p>
+          </div>
+        </div>
+        <div class="flex gap-4 items-start">
+          <span class="career-year shrink-0">2025</span>
+          <div>
+            <p class="text-sm font-semibold">마케팅관리학회 이사</p>
+          </div>
+        </div>
+        <div class="flex gap-4 items-start">
+          <span class="career-year shrink-0">2024</span>
+          <div>
+            <p class="text-sm font-semibold">대학평가센터 센터장</p>
+          </div>
+        </div>
+        <div class="flex gap-4 items-start">
+          <span class="career-year shrink-0">2024</span>
+          <div>
+            <p class="text-sm font-semibold">대학혁신사업 부단장</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Research interests -->
+    <div class="glass rounded-2xl p-7 card-hover">
+      <p class="text-xs font-bold tracking-widest text-gold uppercase mb-5">연구 관심 분야</p>
+      <div class="flex flex-wrap gap-2">
+        <span class="tag">소비자행동</span>
+        <span class="tag">국제브랜드관리</span>
+        <span class="tag">AI(인공지능)</span>
+        <span class="tag">디지털마케팅</span>
+        <span class="tag">빅데이터분석</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="border-dim max-w-5xl mx-auto">
+
+<!-- ═══ RESEARCH ═══ -->
+<section id="research" class="section-tint max-w-5xl mx-auto px-6 py-20">
+  <p class="text-xs font-bold tracking-widest text-gold uppercase mb-3">Research Achievements</p>
+  <h2 class="text-3xl lg:text-4xl font-extrabold tracking-tight mb-3">연구실적</h2>
+  <p class="text-slate-500 text-sm mb-12 max-w-xl">국내외 학술지에 발표한 논문과 저서, 연구 프로젝트 실적입니다.</p>
+
+  <!-- Stats row (자동 계산) -->
+  <div class="grid grid-cols-3 md:grid-cols-3 gap-3 mb-14">
+    <div class="glass rounded-2xl p-6 text-center card-hover">
+      <p class="text-3xl font-extrabold text-gold tracking-tight"><span data-stat="kciPapers" data-countup>0</span></p>
+      <p class="text-xs text-slate-500 mt-2">KCI 등재 논문</p>
+    </div>
+    <div class="glass rounded-2xl p-6 text-center card-hover">
+      <p class="text-3xl font-extrabold text-gold tracking-tight"><span data-stat="intlPapers" data-countup>0</span></p>
+      <p class="text-xs text-slate-500 mt-2">해외 저널 논문</p>
+    </div>
+    <div class="glass rounded-2xl p-6 text-center card-hover">
+      <p class="text-3xl font-extrabold text-gold tracking-tight"><span data-stat="totalProjects" data-countup>0</span></p>
+      <p class="text-xs text-slate-500 mt-2">연구 프로젝트</p>
+    </div>
+  </div>
+
+  <!-- Tab UI -->
+  <div class="flex gap-2 mb-6" id="researchTabs">
+    <button data-tab="papers"   class="tab-btn active-tab px-5 py-2 rounded-full text-sm font-semibold transition-all">학술지 논문</button>
+    <button data-tab="projects" class="tab-btn px-5 py-2 rounded-full text-sm font-semibold transition-all">연구 프로젝트</button>
+  </div>
+
+  <!-- Papers panel -->
+  <div id="tab-papers" class="tab-panel">
+    <!-- Search + grade filter -->
+    <div class="flex flex-col md:flex-row gap-3 mb-3">
+      <div class="relative flex-1">
+        <svg class="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z"/>
+        </svg>
+        <input id="pubSearch" type="search" class="pub-search" placeholder="논문 제목 또는 학술지명으로 검색...">
+      </div>
+      <div class="flex gap-2 flex-wrap" id="gradeFilter">
+        <button data-grade="all"  class="tab-btn active-tab px-4 py-2 rounded-full text-xs font-semibold transition-all">전체</button>
+        <button data-grade="kci"  class="tab-btn px-4 py-2 rounded-full text-xs font-semibold transition-all">KCI급</button>
+        <button data-grade="sci"  class="tab-btn px-4 py-2 rounded-full text-xs font-semibold transition-all">SCI급</button>
+        <button data-grade="intl" class="tab-btn px-4 py-2 rounded-full text-xs font-semibold transition-all">국제일반</button>
+      </div>
+    </div>
+
+    <p id="pubCount" class="text-xs text-slate-500 mb-6"></p>
+
+    <div id="pubList"></div>
+
+    <div class="text-center mt-8">
+      <button id="pubMore" class="hidden px-7 py-3 rounded-full text-sm font-semibold transition-all"></button>
+    </div>
+
+    <p id="pubEmpty" class="hidden text-center text-sm text-slate-500 py-12">검색 결과가 없습니다.</p>
+  </div>
+
+  <!-- Projects panel -->
+  <div id="tab-projects" class="tab-panel hidden space-y-3"></div>
+</section>
+
+<hr class="border-dim max-w-5xl mx-auto">
+
+<!-- ═══ TEACHING ═══ -->
+<section id="teaching" class="max-w-5xl mx-auto px-6 py-20">
+  <p class="text-xs font-bold tracking-widest text-gold uppercase mb-3">Teaching Achievements</p>
+  <h2 class="text-3xl lg:text-4xl font-extrabold tracking-tight mb-3">강의실적</h2>
+  <p class="text-slate-500 text-sm mb-12 max-w-xl">학부 및 대학원 강의를 담당하며 미래 국제경영 전문가를 양성하고 있습니다.</p>
+
+  <!-- Semester toggle -->
+  <div class="flex gap-2 mb-8" id="teachTabs">
+    <button data-ttab="undergrad" class="tab-btn active-tab px-5 py-2 rounded-full text-sm font-semibold transition-all">학부 강의</button>
+    <button data-ttab="grad"      class="tab-btn px-5 py-2 rounded-full text-sm font-semibold transition-all">대학원 강의</button>
+    <button data-ttab="micro"     class="tab-btn px-5 py-2 rounded-full text-sm font-semibold transition-all">마이크로전공</button>
+  </div>
+
+  <!-- Undergrad -->
+  <div id="ttab-undergrad" class="ttab-panel grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div class="glass rounded-2xl p-5 card-hover">
+      <div class="flex justify-between items-start mb-3">
+        <p class="text-sm font-semibold">마케팅원론</p>
+        <span class="pre-pill">선이수과목</span>
+      </div>
+      <p class="text-xs text-slate-500">1학기 · 3학점</p>
+    </div>
+    <div class="glass rounded-2xl p-5 card-hover">
+      <div class="flex justify-between items-start mb-3">
+        <p class="text-sm font-semibold">마케팅커뮤니케이션</p>
+        <span class="sel-pill">전공선택</span>
+      </div>
+      <p class="text-xs text-slate-500">1학기 · 3학점</p>
+    </div>
+    <div class="glass rounded-2xl p-5 card-hover">
+      <div class="flex justify-between items-start mb-3">
+        <p class="text-sm font-semibold">AI기초오피스웨어</p>
+        <span class="pre-pill">선이수과목</span>
+      </div>
+      <p class="text-xs text-slate-500">1학기 · 3학점</p>
+    </div>
+    <div class="glass rounded-2xl p-5 card-hover">
+      <div class="flex justify-between items-start mb-3">
+        <p class="text-sm font-semibold">국제브랜드관리</p>
+        <span class="sel-pill">전공선택</span>
+      </div>
+      <p class="text-xs text-slate-500">1학기 · 3학점</p>
+    </div>
+    <div class="glass rounded-2xl p-5 card-hover">
+      <div class="flex justify-between items-start mb-3">
+        <p class="text-sm font-semibold">경영학원론</p>
+        <span class="pre-pill">선이수과목</span>
+      </div>
+      <p class="text-xs text-slate-500">2학기 · 3학점</p>
+    </div>
+    <div class="glass rounded-2xl p-5 card-hover">
+      <div class="flex justify-between items-start mb-3">
+        <p class="text-sm font-semibold">AI고급오피스웨어</p>
+        <span class="pre-pill">선이수과목</span>
+      </div>
+      <p class="text-xs text-slate-500">2학기 · 3학점</p>
+    </div>
+    <div class="glass rounded-2xl p-5 card-hover">
+      <div class="flex justify-between items-start mb-3">
+        <p class="text-sm font-semibold">소비자행동론</p>
+        <span class="sel-pill">전공선택</span>
+      </div>
+      <p class="text-xs text-slate-500">2학기 · 3학점</p>
+    </div>
+    <div class="glass rounded-2xl p-5 card-hover">
+      <div class="flex justify-between items-start mb-3">
+        <p class="text-sm font-semibold">마케팅조사방법론</p>
+        <span class="sel-pill">전공선택</span>
+      </div>
+      <p class="text-xs text-slate-500">2학기 · 3학점</p>
+    </div>
+    <div class="glass rounded-2xl p-5 card-hover">
+      <div class="flex justify-between items-start mb-3">
+        <p class="text-sm font-semibold">국제시장조사</p>
+        <span class="sel-pill">전공선택</span>
+      </div>
+      <p class="text-xs text-slate-500">2학기 · 3학점</p>
+    </div>
+  </div>
+
+  <!-- Grad -->
+  <div id="ttab-grad" class="ttab-panel hidden grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div class="glass rounded-2xl p-5 card-hover">
+      <div class="flex justify-between items-start mb-3">
+        <p class="text-sm font-semibold">국제마케팅 특론</p>
+        <span class="sel-pill">석사</span>
+      </div>
+      <p class="text-xs text-slate-500">1학기 · 3학점</p>
+    </div>
+    <div class="glass rounded-2xl p-5 card-hover">
+      <div class="flex justify-between items-start mb-3">
+        <p class="text-sm font-semibold">글로벌 브랜드 관리론</p>
+        <span class="sel-pill">석사</span>
+      </div>
+      <p class="text-xs text-slate-500">2학기 · 3학점</p>
+    </div>
+    <div class="glass rounded-2xl p-5 card-hover">
+      <div class="flex justify-between items-start mb-3">
+        <p class="text-sm font-semibold">마케팅 연구방법론</p>
+        <span class="sel-pill">석·박사</span>
+      </div>
+      <p class="text-xs text-slate-500">2학기 · 3학점</p>
+    </div>
+  </div>
+
+  <!-- Microdegree -->
+  <div id="ttab-micro" class="ttab-panel hidden grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div class="glass rounded-2xl p-5 card-hover">
+      <div class="flex justify-between items-start mb-3">
+        <p class="text-sm font-semibold">AI디지털 마케팅</p>
+        <span class="base-pill">마이크로전공</span>
+      </div>
+      <p class="text-xs text-slate-500">2학기 · 3학점</p>
+    </div>
+  </div>
+</section>
+
+<hr class="border-dim max-w-5xl mx-auto">
+
+<!-- ═══ GALLERY ═══ -->
+<section id="gallery" class="section-tint max-w-5xl mx-auto px-6 py-20">
+  <p class="text-xs font-bold tracking-widest text-gold uppercase mb-3">Activities</p>
+  <h2 class="text-3xl lg:text-4xl font-extrabold tracking-tight mb-3">활동</h2>
+  <p class="text-slate-500 text-sm mb-12 max-w-xl">연구활동과 해외프로젝트 현장의 모습입니다.</p>
+
+  <!-- Filter chips -->
+  <div class="flex gap-2 mb-8 flex-wrap" id="galleryFilter">
+    <button data-gtag="all"      class="tab-btn active-tab px-5 py-2 rounded-full text-sm font-semibold transition-all">전체</button>
+    <button data-gtag="research" class="tab-btn px-5 py-2 rounded-full text-sm font-semibold transition-all">연구활동</button>
+    <button data-gtag="overseas" class="tab-btn px-5 py-2 rounded-full text-sm font-semibold transition-all">해외프로젝트</button>
+    <button data-gtag="outreach" class="tab-btn px-5 py-2 rounded-full text-sm font-semibold transition-all">대외활동</button>
+  </div>
+
+  <div id="galleryGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+</section>
+
+<!-- Lightbox -->
+<div id="lightbox" class="hidden fixed inset-0 z-[70] flex items-center justify-center p-6" style="background:rgba(22,18,10,0.92)">
+  <button id="lbClose" class="absolute top-5 right-6 text-slate-300 hover:text-white" aria-label="닫기">
+    <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+  </button>
+  <button id="lbPrev" class="absolute left-3 sm:left-6 text-slate-300 hover:text-white" aria-label="이전 사진">
+    <svg class="w-9 h-9" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+  </button>
+  <button id="lbNext" class="absolute right-3 sm:right-6 text-slate-300 hover:text-white" aria-label="다음 사진">
+    <svg class="w-9 h-9" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+  </button>
+  <figure class="max-w-4xl max-h-full text-center">
+    <img id="lbImg" src="" alt="" class="max-h-[78vh] mx-auto rounded-2xl border border-white/15 shadow-2xl">
+    <figcaption id="lbCaption" class="mt-4 text-sm text-slate-300"></figcaption>
+  </figure>
+</div>
+
+<hr class="border-dim max-w-5xl mx-auto">
+
+<!-- ═══ CAREER ═══ -->
+<section id="career" class="max-w-5xl mx-auto px-6 py-20">
+  <p class="text-xs font-bold tracking-widest text-gold uppercase mb-3">Career</p>
+  <h2 class="text-3xl lg:text-4xl font-extrabold tracking-tight mb-3">주요경력</h2>
+  <p class="text-slate-500 text-sm mb-12 max-w-xl">학계 및 산업계에서 쌓아온 주요 경력 사항입니다.</p>
+
+  <div class="space-y-4">
+    <!-- Work experience -->
+    <div class="glass rounded-2xl p-7 card-hover">
+      <p class="text-xs font-bold tracking-widest text-gold uppercase mb-5">주요 경력</p>
+      <div class="space-y-4">
+        <div class="flex gap-4 items-start">
+          <span class="career-year shrink-0">2019–</span>
+          <div>
+            <p class="text-sm font-semibold">부산외국어대학교 국제마케팅전공 교수</p>
+            <p class="text-xs text-slate-500 mt-0.5">현직</p>
+          </div>
+        </div>
+        <div class="flex gap-4 items-start">
+          <span class="career-year shrink-0">2026–</span>
+          <div>
+            <p class="text-sm font-semibold">부울경 입학홍보처장(본부장) 협의회 회장</p>
+            <p class="text-xs text-slate-500 mt-0.5">현직</p>
+          </div>
+        </div>
+        <div class="flex gap-4 items-start">
+          <span class="career-year shrink-0">2025–</span>
+          <div>
+            <p class="text-sm font-semibold">입학홍보처장</p>
+            <p class="text-xs text-slate-500 mt-0.5">현직</p>
+          </div>
+        </div>
+        <div class="flex gap-4 items-start">
+          <span class="career-year shrink-0">2024</span>
+          <div>
+            <p class="text-sm font-semibold">대학혁신사업 부단장</p>
+          </div>
+        </div>
+        <div class="flex gap-4 items-start">
+          <span class="career-year shrink-0">2024</span>
+          <div>
+            <p class="text-sm font-semibold">대학평가센터 센터장</p>
+          </div>
+        </div>
+        <div class="flex gap-4 items-start">
+          <span class="career-year shrink-0">2023</span>
+          <div>
+            <p class="text-sm font-semibold">융합교육센터 센터장</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Social service -->
+    <div class="glass rounded-2xl p-7 card-hover">
+      <p class="text-xs font-bold tracking-widest text-gold uppercase mb-5">사회봉사</p>
+      <div class="space-y-4">
+        <div class="flex gap-4 items-start">
+          <span class="career-year shrink-0">2025</span>
+          <div>
+            <p class="text-sm font-semibold">마케팅관리학회 이사</p>
+          </div>
+        </div>
+        <div class="flex gap-4 items-start">
+          <span class="career-year shrink-0">2024</span>
+          <div>
+            <p class="text-sm font-semibold">마케팅관리학회 상임이사</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="border-dim max-w-5xl mx-auto">
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact" class="section-tint max-w-5xl mx-auto px-6 py-20">
+  <p class="text-xs font-bold tracking-widest text-gold uppercase mb-3">Contact</p>
+  <h2 class="text-3xl lg:text-4xl font-extrabold tracking-tight mb-3">연락처</h2>
+  <p class="text-slate-500 text-sm mb-12 max-w-xl">연구 협력, 강의 문의, 대학원 입학 상담은 이메일 또는 연구실 방문으로 문의하세요.</p>
+
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="glass rounded-2xl p-7 card-hover">
+      <p class="text-xs font-bold tracking-widest text-gold uppercase mb-5">연구실</p>
+      <dl class="space-y-3.5">
+        <div class="flex gap-4"><dt class="text-xs text-slate-500 w-20 pt-0.5">주소</dt><dd class="text-sm leading-relaxed">부산광역시 금정구 금샘로 485번길 65<br>부산외국어대학교 트리니티홀(D) 613</dd></div>
+        <div class="flex gap-4"><dt class="text-xs text-slate-500 w-20 pt-0.5">전화</dt><dd class="text-sm">051-509-6058</dd></div>
+      </dl>
+    </div>
+    <div class="glass rounded-2xl p-7 card-hover">
+      <p class="text-xs font-bold tracking-widest text-gold uppercase mb-5">온라인 문의</p>
+      <dl class="space-y-3.5">
+        <div class="flex gap-4"><dt class="text-xs text-slate-500 w-20 pt-0.5">이메일</dt><dd class="text-sm">sweum@bufs.ac.kr</dd></div>
+        <div class="flex gap-4"><dt class="text-xs text-slate-500 w-20 pt-0.5">상담시간</dt><dd class="text-sm leading-relaxed">화요일 14:00–16:00<br>목요일 10:00–12:00</dd></div>
+      </dl>
+    </div>
+
+    <!-- Department YouTube -->
+    <a href="https://www.youtube.com/@bufs_7311" target="_blank" rel="noopener"
+       class="glass rounded-2xl p-7 card-hover md:col-span-2 flex flex-col sm:flex-row items-center gap-6 group">
+      <div class="shrink-0 flex items-center justify-center w-16 h-16 rounded-2xl" style="background:rgba(255,0,0,0.07); border:1px solid rgba(255,0,0,0.25)">
+        <svg class="w-9 h-9" viewBox="0 0 24 24" fill="#ff0000"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      </div>
+      <div class="text-center sm:text-left flex-1">
+        <p class="text-xs font-bold tracking-widest text-gold uppercase mb-1">학과 유튜브</p>
+        <p class="text-lg font-bold">국제마케팅전공 공식 유튜브 채널</p>
+        <p class="text-sm text-slate-500 mt-0.5">학과 소식과 강의·활동 영상을 확인하세요 · @bufs_7311</p>
+      </div>
+      <span class="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-all"
+            style="background:#ff0000" onmouseover="this.style.background='#cc0000'" onmouseout="this.style.background='#ff0000'">
+        채널 방문하기
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      </span>
+    </a>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="border-dim border-t py-8 text-center" style="background:rgba(168,132,44,0.05)">
+  <img src="bufs-logo.png" alt="부산외국어대학교" class="h-10 w-auto mx-auto mb-3">
+  <p class="text-xs text-slate-500">© 2026 Busan University of Foreign Studies. All rights reserved.</p>
+</footer>
+
+<!-- Back to top -->
+<button id="backToTop" aria-label="맨 위로">
+  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
+  </svg>
+</button>
+
+<!-- ═══ JAVASCRIPT ═══ -->
+<script>
+  // ══════════════════════════════════════════
+  // 논문 데이터 — 새 논문은 여기 맨 위에 한 줄 추가하면
+  // 목록·통계·히어로 숫자가 모두 자동 갱신됩니다.
+  // grade: 'kci' | 'sci' | 'intl'
+  // ══════════════════════════════════════════
+  const PUBLICATIONS = [
+    { date: '2026.06', title: '딥러닝기반 친환경 소비자 불만족 감성강도 측정 연구', venue: '혁신기업연구', publisher: '사회혁신기업연구원', grade: 'kci' },
+    { date: '2026.02', title: '대학생 PSC 핵심역량 진단도구 개발 연구 -B대학 사례를 중심으로-', venue: '다문화사회와 교육연구', publisher: '', grade: 'kci' },
+    { date: '2025.12', title: '생성형 인공지능에 대한 대학생 경험 조사연구: B대학을 중심으로', venue: '혁신기업연구', publisher: '사회혁신기업연구원', grade: 'kci' },
+    { date: '2025.05', title: 'Effects of digital marketing on departmental choice and awareness in higher education', venue: 'International Journal of Engineering Business Management', publisher: 'Sage', grade: 'sci' },
+    { date: '2025.02', title: 'Asymmetric Effect of Customer Opinions for Service Quality Attributes: Textmining Approach', venue: 'BUSINESSES', publisher: 'MDPI', grade: 'intl' },
+    { date: '2024.12', title: '토픽모델링을 활용한 중국 e-커머스에 대한 소비자 인식 연구', venue: 'Journal of China Studies', publisher: '중국전략연구소', grade: 'kci' },
+    { date: '2024.09', title: '해외 온라인 플랫폼에 대한 소비자 인식 연구: 중국 e커머스를 중심으로', venue: '혁신기업연구', publisher: '사회혁신기업연구원', grade: 'kci' },
+    { date: '2023.12', title: '로고스경영연구(LMR) 20년: 문헌계량학적 회고', venue: '로고스경영연구', publisher: '한국로고스경영학회', grade: 'kci' },
+    { date: '2023.12', title: '감성 분석을 활용한 온라인 식품 유통 플랫폼 브랜드 개성 측정 연구', venue: '마케팅논집(Journal of Marketing Studies)', publisher: '한국전략마케팅학회', grade: 'kci' },
+    { date: '2023.11', title: 'The impact of student engagement on student loyalty and commitment', venue: 'International Journal of Services and Operations Management', publisher: 'Inderscience Publishers', grade: 'sci' },
+    { date: '2023.07', title: '고객 만족의 3 요인 이론을 이용한 경쟁사 서비스 품질 속성 비교: 대한항공과 싱가폴항공을 중심으로', venue: '마케팅관리연구', publisher: '한국마케팅관리학회', grade: 'kci' },
+    { date: '2023.06', title: '배달 서비스 플랫폼의 가치공동파괴와 회복에 관한 연구', venue: 'Journal of The Korean Data Analysis Society', publisher: '한국자료분석학회', grade: 'kci' },
+    { date: '2023.04', title: '로짓분석(logit analysis)을 활용한 호텔 서비스 품질 속성에 관한 연구', venue: '호텔관광연구', publisher: '한국호텔관광학회', grade: 'kci' },
+    { date: '2023.03', title: '토픽모델링을 활용한 항공 서비스 품질 속성 연구', venue: '혁신기업연구', publisher: '사회혁신기업연구원', grade: 'kci' },
+    { date: '2022.10', title: '학생만족도에 대한 교육품질 속성의 비대칭·비선형 영향 연구', venue: 'Journal of The Korean Data Analysis Society', publisher: '한국자료분석학회', grade: 'kci' },
+    { date: '2022.10', title: '항공사 서비스 품질에 대한 고객 가성비 인식에 관한 연구', venue: 'KBM Journal', publisher: 'K기업경영연구원', grade: 'kci' },
+    { date: '2022.10', title: '카페 서비스품질 측정에 관한 연구: 마케팅 애널리틱스 접근법', venue: '경영교육연구', publisher: '한국경영교육학회', grade: 'kci' },
+    { date: '2022.09', title: '3요인 이론을 이용한 경쟁사 속성 비교 연구: 중국항공사와 한국항공사 중심으로', venue: 'Journal of China Studies', publisher: '중국연구소', grade: 'kci' },
+    { date: '2022.08', title: '토픽모델링을 활용한 가치공동창출과 가치공동파괴 요인 분석 연구', venue: '혁신기업연구', publisher: '사회혁신기업연구원', grade: 'kci' },
+    { date: '2022.02', title: '항공사 서비스품질에 대한 고객인식 분석 연구 -A 항공사를 중심으로-', venue: 'KBM Journal', publisher: 'K기업경영연구원', grade: 'kci' },
+    { date: '2021.08', title: '구조적 등위성 분석을 활용한 강의평가 연구', venue: '경영교육연구', publisher: '한국경영교육학회', grade: 'kci' },
+    { date: '2021.06', title: '비대칭성을 활용한 항공 서비스 품질 속성 연구', venue: '한국항공경영학회지', publisher: '한국항공경영학회', grade: 'kci' },
+    { date: '2021.06', title: 'Impact of National Cultural Networks on Trade Network: QAP Analysis', venue: '무역연구', publisher: '한국무역연구원', grade: 'kci' },
+    { date: '2021.03', title: '공동가치파괴 행동에 대한 소비자 반응 연구', venue: '경영과 정보연구', publisher: '대한경영정보학회', grade: 'kci' },
+    { date: '2021.02', title: 'Using Text Mining to Measure Mobile Service Quality', venue: 'Industrial Management & Data Systems', publisher: 'Emerald', grade: 'sci' },
+    { date: '2020.08', title: 'Analyzing Core-Periphery Structure among Trade Countries of Agricultural Products', venue: '무역연구', publisher: '한국무역연구원', grade: 'kci' },
+    { date: '2020.06', title: '승객 이용 후기의 감성분석을 이용한 항공 서비스 품질 측정', venue: '한국항공경영학회지', publisher: '한국항공경영학회', grade: 'kci' },
+    { date: '2020.06', title: '텍스트 마이닝을 활용한 Youtube 광고에 대한 소비자 인식 분석', venue: '경영과 정보연구', publisher: '대한경영정보학회', grade: 'kci' },
+    { date: '2020.05', title: 'Using Sentiment Analyze to Analyze the Feedback of Students with Open-ended Questions', venue: '인문사회과학연구', publisher: '인문사회과학연구소', grade: 'kci' },
+    { date: '2020.04', title: '문화공연 청중의 문화적 취향에 관한 연구', venue: '문화와 융합', publisher: '한국문화융합학회', grade: 'kci' },
+    { date: '2019.12', title: '점포 내 고객의 정서적 경험이 재방문의도에 미치는 영향-중국 소비자를 중심으로-', venue: 'Journal of China Studies', publisher: '중국연구소', grade: 'kci' },
+    { date: '2019.06', title: '증강현실 광고유형이 브랜드애착에 미치는 영향에 관한 연구', venue: '경영과 정보연구', publisher: '대한경영정보학회', grade: 'kci' },
+    { date: '2018.12', title: '소셜미디어 인게이지먼트의 문화 간 차이 연구- 미국 내 히스패닉과 비히스패닉 계 비교를 통한', venue: '중남미연구', publisher: '중남미연구소', grade: 'kci' },
+    { date: '2018.10', title: '공급업체와 구매업체의 관계인식이 성과에 미치는 영향에 관한 연구', venue: '경영교육연구', publisher: '한국경영교육학회', grade: 'kci' },
+    { date: '2018.09', title: '소셜네트워크 분석을 활용한 이문화거리 측정에 관한 연구', venue: '로고스경영연구', publisher: '한국로고스경영학회', grade: 'kci' },
+    { date: '2017.12', title: '조직시민행동이 조직성과에 미치는 영향에 관한 연구', venue: '기업경영리뷰', publisher: 'KNU 기업경영연구소', grade: 'kci' },
+    { date: '2017.12', title: 'BtoB 기업간 형성된 사회적 자본이 기업성과에 미치는 영향에 관한 연구 - 지식흡수역량의 매개적 조절효과를 중심으로 -', venue: '경영과 정보연구', publisher: '대한경영정보학회', grade: 'kci' },
+    { date: '2017.11', title: '공연 경험은 어떻게 측정되는가? - 공연 경험이 즐거움과 재관람의도에 미치는 영향에 관한 연구', venue: '예술경영연구', publisher: '한국예술경영학회', grade: 'kci' },
+    { date: '2017.04', title: '소비자의 지속적인 친환경소비행동을 어떻게 이끌어 낼 수 있는가?', venue: '소비자학연구', publisher: '한국소비자학회', grade: 'kci' },
+    { date: '2016.04', title: '서비스실패의 허용영역과 심각성 지각에 영향을 미치는 요인에 관한 연구', venue: '서비스 연구', publisher: '서비스사이언스학회', grade: 'kci' },
+    { date: '2016.03', title: 'BtoB거래에서의 협업 Quality 측정도구 개발과 조직성과와의 관계 연구', venue: '인적자원관리연구', publisher: '한국인적자원관리학회', grade: 'kci' },
+    { date: '2015.09', title: '지각된 동료의 조직시민행동과 프렌드십이 직무성과에 미치는 영향', venue: '인적자원관리연구', publisher: '한국인적자원관리학회', grade: 'kci' },
+    { date: '2015.03', title: '즐거움이 과연 조직성과에 긍정적인 영향을 미칠까? - 생활협동조합을 중심으로 -', venue: '인적자원관리연구', publisher: '한국인적자원관리학회', grade: 'kci' },
+    { date: '2014.12', title: '소비자의 공감반응을 끌어낼 수 있는 사회적기업의 사회공헌 활동에 관한 연구', venue: '경영과 정보연구', publisher: '대한경영정보학회', grade: 'kci' },
+    { date: '2014.11', title: '참여를 통한 즐거움이 관계품질과 조직성과에 미치는 영향에 관한 연구 – 생활협동조합을 중심으로 –', venue: '경영연구', publisher: '한국산업경영학회', grade: 'kci' },
+    { date: '2008.03', title: 'A Study on the Various Attribute of E-Sport Influencing Flow and Identification', venue: 'Journal of Global Scholars of Marketing Science(마케팅과학연구)', publisher: '한국마케팅과학회', grade: 'kci' },
+  ];
+
+  const PROJECTS = [
+    { title: '부정적리뷰에 숨겨진 효과에 관한 연구', funder: '한국연구재단' },
+    { title: '비대칭영향력-감성성과분석(AISPA)을 활용한 항공사 서비스 품질 연구', funder: '(재)정석물류학술재단' },
+    { title: '소비자참여를 기반으로한 공유가치창출 프레임워크 개발', funder: '한국연구재단' },
+  ];
+
+  const GRADE_BADGE = {
+    kci:  '<span class="kci-badge">KCI급</span>',
+    sci:  '<span class="scopus-badge">SCI급</span>',
+    intl: '<span class="intl-badge">국제일반</span>',
+  };
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ── 통계 자동 계산 ──
+  const STATS = {
+    totalPapers: PUBLICATIONS.length,
+    kciPapers: PUBLICATIONS.filter(p => p.grade === 'kci').length,
+    intlPapers: PUBLICATIONS.filter(p => p.grade !== 'kci').length,
+    totalProjects: PROJECTS.length,
+  };
+  document.querySelectorAll('[data-stat]').forEach(el => {
+    el.dataset.target = STATS[el.dataset.stat] ?? 0;
+  });
+
+  // ── 숫자 카운트업 ──
+  const countUp = el => {
+    const target = parseInt(el.dataset.target, 10) || 0;
+    if (prefersReducedMotion) { el.textContent = target; return; }
+    const duration = 1200;
+    const start = performance.now();
+    const tick = now => {
+      const t = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = Math.round(target * eased);
+      if (t < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+  const countObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        countUp(entry.target);
+        countObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  document.querySelectorAll('[data-countup]').forEach(el => countObserver.observe(el));
+
+  // ── 논문 목록 렌더링 (검색 + 등급 필터 + 연도 그룹) ──
+  const pubList = document.getElementById('pubList');
+  const pubCount = document.getElementById('pubCount');
+  const pubEmpty = document.getElementById('pubEmpty');
+  const pubSearch = document.getElementById('pubSearch');
+  const pubMore = document.getElementById('pubMore');
+  const INITIAL_SHOW = 10;
+  let currentGrade = 'all';
+  let showAllPubs = false;
+
+  const escapeHtml = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+  function renderPublications() {
+    const q = pubSearch.value.trim().toLowerCase();
+    const filtered = PUBLICATIONS.filter(p => {
+      const gradeOk = currentGrade === 'all' || p.grade === currentGrade;
+      const text = (p.title + ' ' + p.venue + ' ' + (p.publisher || '') + ' ' + (p.note || '')).toLowerCase();
+      return gradeOk && (!q || text.includes(q));
+    });
+
+    // 검색/필터 중엔 결과가 이미 좁혀지므로 전체 표시, 기본 화면만 최신 N편 제한
+    const isFiltering = q !== '' || currentGrade !== 'all';
+    const visible = (isFiltering || showAllPubs) ? filtered : filtered.slice(0, INITIAL_SHOW);
+
+    pubCount.textContent = `전체 ${PUBLICATIONS.length}편 중 ${visible.length}편 표시`;
+    pubEmpty.classList.toggle('hidden', filtered.length > 0);
+
+    pubMore.classList.toggle('hidden', isFiltering || filtered.length <= INITIAL_SHOW);
+    pubMore.textContent = showAllPubs ? `최신 ${INITIAL_SHOW}편만 보기 ↑` : `전체 ${filtered.length}편 보기 ↓`;
+
+    // 연도별 그룹핑 (배열 순서 = 최신순 유지)
+    const groups = [];
+    visible.forEach(p => {
+      const year = p.date.split('.')[0];
+      const last = groups[groups.length - 1];
+      if (last && last.year === year) last.items.push(p);
+      else groups.push({ year, items: [p] });
+    });
+
+    let i = 0;
+    pubList.innerHTML = groups.map(g => `
+      <div class="year-head">
+        <span class="yh-label">${g.year}</span>
+        <span class="yh-line"></span>
+        <span class="yh-count">${g.items.length}편</span>
+      </div>
+      <div class="space-y-3">
+        ${g.items.map(p => `
+          <div class="pub-item anim-in glass rounded-2xl p-5 flex gap-4 items-start" style="animation-delay:${Math.min(i++ * 30, 300)}ms">
+            <span class="year-badge shrink-0 mt-0.5">${p.date}</span>
+            <div>
+              <p class="text-sm font-semibold mb-1">${escapeHtml(p.title)}</p>
+              <p class="text-xs text-slate-500 flex flex-wrap items-center gap-2">${escapeHtml(p.venue)}${p.publisher ? ' · ' + escapeHtml(p.publisher) : ''} ${GRADE_BADGE[p.grade]}</p>
+              ${p.note ? `<p class="text-[11px] text-slate-500 mt-1.5 leading-relaxed">${escapeHtml(p.note)}</p>` : ''}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `).join('');
+  }
+
+  pubSearch.addEventListener('input', renderPublications);
+
+  pubMore.addEventListener('click', () => {
+    showAllPubs = !showAllPubs;
+    renderPublications();
+    if (!showAllPubs) {
+      document.getElementById('research').scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+    }
+  });
+
+  document.getElementById('gradeFilter').addEventListener('click', e => {
+    const btn = e.target.closest('[data-grade]');
+    if (!btn) return;
+    document.querySelectorAll('#gradeFilter [data-grade]').forEach(b => b.classList.remove('active-tab'));
+    btn.classList.add('active-tab');
+    currentGrade = btn.dataset.grade;
+    renderPublications();
+  });
+
+  // ── 프로젝트 목록 렌더링 ──
+  document.getElementById('tab-projects').innerHTML = PROJECTS.map(p => `
+    <div class="pub-item glass rounded-2xl p-5 flex gap-4 items-start">
+      <div>
+        <p class="text-sm font-semibold mb-1">${escapeHtml(p.title)}</p>
+        <p class="text-xs text-slate-500">${escapeHtml(p.funder)}</p>
+      </div>
+    </div>
+  `).join('');
+
+  renderPublications();
+
+  // ══════════════════════════════════════════
+  // 활동 갤러리 — photos 폴더에 사진을 넣고 아래 배열에
+  // 한 줄 추가하면 갤러리에 자동 반영됩니다.
+  // tag: 'research'(연구활동) | 'overseas'(해외프로젝트)
+  // 사진 파일이 없으면 자동으로 placeholder 카드가 표시됩니다.
+  // ══════════════════════════════════════════
+  const GALLERY = [
+    { src: 'photos/conference-01.jpg', caption: '고교·교육청·대학 연합 진학 콘퍼런스 인사말 (2026.5)', tag: 'outreach' },
+    { src: 'photos/conference-02.jpg', caption: '지역대학과 함께하는 연합 진학 콘퍼런스 (2026.5)', tag: 'outreach' },
+    { src: 'photos/overseas-01.jpg', caption: '학생들과 함께한 글로벌 해외연구 프로그램 (외행성, 2025)', tag: 'overseas' },
+    { src: 'photos/research-01.jpg', caption: '동료 교수진과 공동 연구·프로젝트 수행', tag: 'research' },
+  ];
+  const GTAG_LABEL = { research: '연구활동', overseas: '해외프로젝트', outreach: '대외활동' };
+
+  const galleryGrid = document.getElementById('galleryGrid');
+  let currentGtag = 'all';
+
+  const galleryFooter = g => `
+    <figcaption class="p-4 flex items-center justify-between gap-2">
+      <span class="text-sm font-semibold">${escapeHtml(g.caption)}</span>
+      <span class="gtag-badge shrink-0">${GTAG_LABEL[g.tag]}</span>
+    </figcaption>`;
+
+  function renderGallery() {
+    const items = GALLERY.filter(g => currentGtag === 'all' || g.tag === currentGtag);
+    galleryGrid.innerHTML = items.map(g => {
+      const idx = GALLERY.indexOf(g);
+      if (g.broken) {
+        return `
+          <figure class="glass rounded-2xl overflow-hidden anim-in">
+            <div class="gallery-ph">
+              <svg class="w-9 h-9" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z"/>
+              </svg>
+              <span class="text-[11px]">photos 폴더에 ${g.src.split('/')[1]} 추가</span>
+            </div>
+            ${galleryFooter(g)}
+          </figure>`;
+      }
+      return `
+        <figure class="gallery-card glass rounded-2xl anim-in" data-idx="${idx}">
+          <img src="${g.src}" alt="${escapeHtml(g.caption)}" class="w-full h-56 object-cover" loading="lazy">
+          ${galleryFooter(g)}
+        </figure>`;
+    }).join('');
+
+    galleryGrid.querySelectorAll('.gallery-card img').forEach(img => {
+      img.addEventListener('error', () => {
+        GALLERY[+img.closest('.gallery-card').dataset.idx].broken = true;
+        renderGallery();
+      }, { once: true });
+    });
+  }
+
+  document.getElementById('galleryFilter').addEventListener('click', e => {
+    const btn = e.target.closest('[data-gtag]');
+    if (!btn) return;
+    document.querySelectorAll('#galleryFilter [data-gtag]').forEach(b => b.classList.remove('active-tab'));
+    btn.classList.add('active-tab');
+    currentGtag = btn.dataset.gtag;
+    renderGallery();
+  });
+
+  renderGallery();
+
+  // ── Lightbox ──
+  const lightbox = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lbImg');
+  const lbCaption = document.getElementById('lbCaption');
+  let lbItems = [], lbIndex = 0;
+
+  function showLightbox() {
+    const g = lbItems[lbIndex];
+    lbImg.src = g.src;
+    lbImg.alt = g.caption;
+    lbCaption.textContent = `${g.caption} · ${GTAG_LABEL[g.tag]}`;
+    lightbox.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    lightbox.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+  function stepLightbox(dir) {
+    if (!lbItems.length) return;
+    lbIndex = (lbIndex + dir + lbItems.length) % lbItems.length;
+    showLightbox();
+  }
+
+  galleryGrid.addEventListener('click', e => {
+    const card = e.target.closest('.gallery-card[data-idx]');
+    if (!card) return;
+    lbItems = GALLERY.filter(g => !g.broken && (currentGtag === 'all' || g.tag === currentGtag));
+    lbIndex = lbItems.indexOf(GALLERY[+card.dataset.idx]);
+    if (lbIndex < 0) return;
+    showLightbox();
+  });
+  document.getElementById('lbClose').addEventListener('click', closeLightbox);
+  document.getElementById('lbPrev').addEventListener('click', () => stepLightbox(-1));
+  document.getElementById('lbNext').addEventListener('click', () => stepLightbox(1));
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', e => {
+    if (lightbox.classList.contains('hidden')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') stepLightbox(-1);
+    if (e.key === 'ArrowRight') stepLightbox(1);
+  });
+
+  // ── Mobile menu ──
+  const mobileMenuBtn = document.getElementById('mobileMenu');
+  const mobileNav = document.getElementById('mobileNav');
+  mobileMenuBtn.addEventListener('click', () => mobileNav.classList.toggle('hidden'));
+  mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileNav.classList.add('hidden')));
+
+  // ── Scroll: progress bar + nav shrink + back-to-top + active nav ──
+  const sections = ['about', 'research', 'teaching', 'gallery', 'career', 'contact'];
+  const navLinks = document.querySelectorAll('.nav-link');
+  const progressBar = document.getElementById('scrollProgress');
+  const navbar = document.getElementById('navbar');
+  const backToTop = document.getElementById('backToTop');
+
+  window.addEventListener('scroll', () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    progressBar.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
+
+    navbar.classList.toggle('nav-compact', window.scrollY > 60);
+    backToTop.classList.toggle('show', window.scrollY > 600);
+
+    let current = '';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY >= el.offsetTop - 120) current = id;
+    });
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${current}`) link.classList.add('active');
+    });
+  }, { passive: true });
+
+  backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' }));
+
+  // ── Research tabs ──
+  document.getElementById('researchTabs').addEventListener('click', e => {
+    const btn = e.target.closest('[data-tab]');
+    if (!btn) return;
+    document.querySelectorAll('#researchTabs [data-tab]').forEach(b => b.classList.remove('active-tab'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+    btn.classList.add('active-tab');
+    document.getElementById(`tab-${btn.dataset.tab}`).classList.remove('hidden');
+  });
+
+  // ── Teaching tabs ──
+  document.getElementById('teachTabs').addEventListener('click', e => {
+    const btn = e.target.closest('[data-ttab]');
+    if (!btn) return;
+    document.querySelectorAll('[data-ttab]').forEach(b => b.classList.remove('active-tab'));
+    document.querySelectorAll('.ttab-panel').forEach(p => p.classList.add('hidden'));
+    btn.classList.add('active-tab');
+    document.getElementById(`ttab-${btn.dataset.ttab}`).classList.remove('hidden');
+  });
+
+  // ── Fade-in on scroll (정적 카드만; 동적 논문 목록은 anim-in으로 처리) ──
+  if (!prefersReducedMotion) {
+    const fadeObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.translate = '0 0';
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('section .glass, .fcard').forEach((el, i) => {
+      el.style.opacity = '0';
+      el.style.translate = '0 18px';
+      el.style.transition = 'opacity 0.5s ease, translate 0.5s ease';
+      el.style.transitionDelay = (i % 5) * 70 + 'ms';
+      fadeObserver.observe(el);
+    });
+  }
+</script>
+</body>
+</html>
