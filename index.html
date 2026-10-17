@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>엄성원 교수 | 부산외국어대학교</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -11,16 +14,17 @@
         extend: {
           colors: {
             gold: {
-              DEFAULT: '#a8842c',
-              light: '#c9a84c',
-              dim: 'rgba(168,132,44,0.12)',
+              DEFAULT: '#23395B',
+              light: '#35507F',
+              dim: 'rgba(35,57,91,0.08)',
             },
-            charcoal: '#2b2b33',
+            charcoal: '#1B1F2A',
             surface: 'rgba(255,255,255,0.8)',
             glass: 'rgba(255,255,255,0.75)',
           },
           fontFamily: {
-            sans: ['Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', 'sans-serif'],
+            sans: ['Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'sans-serif'],
+            serif: ['Noto Serif KR', 'Nanum Myeongjo', 'AppleMyungjo', 'serif'],
           },
         },
       },
@@ -76,22 +80,8 @@
       box-shadow: 0 2px 6px rgba(43,43,51,0.05), 0 14px 36px rgba(120,100,60,0.12), inset 0 1px 0 rgba(255,255,255,0.95);
     }
 
-    /* alternating section tint for subtle tonal separation.
-       box-shadow spread + clip-path makes the band full-bleed even though
-       the section itself is a centered max-w container. */
-    .section-tint {
-      position: relative;
-      background: rgba(168,132,44,0.035);
-      box-shadow: 0 0 0 100vmax rgba(168,132,44,0.035);
-      clip-path: inset(0 -100vmax);
-    }
-    .section-tint::before,
-    .section-tint::after {
-      content: ""; position: absolute; left: -100vmax; right: -100vmax; height: 1px;
-      background: rgba(43,43,51,0.06);
-    }
-    .section-tint::before { top: 0; }
-    .section-tint::after  { bottom: 0; }
+    /* section separator: hairline rules only (no full-bleed trick -> no horizontal overflow) */
+    .section-tint { position: relative; border-top: 1px solid rgba(27,31,42,0.14); }
 
     /* strip separator */
     .border-dim { border-color: rgba(43,43,51,0.09); }
@@ -308,9 +298,142 @@
       background: rgba(168,132,44,0.1); border: 1px solid rgba(168,132,44,0.3); color: #8a6a1f;
     }
 
+
+    /* ═══ Academic editorial theme layer ═══ */
+    :root { --paper:#F7F4EC; --ink:#1B1F2A; --navy:#23395B; --rule:rgba(27,31,42,0.16); --muted:#4B5563; }
+    html { word-break: keep-all; overflow-wrap: break-word; overflow-x: clip; }
+    body { background: var(--paper); color: var(--ink); font-family: 'Noto Serif KR','Nanum Myeongjo','AppleMyungjo',serif; font-size: 16px; line-height: 1.75; overflow-x: clip; }
+    p, li, dd { line-height: 1.8; }
+    h1, h2, h3 { font-family: 'Noto Serif KR','Nanum Myeongjo','AppleMyungjo',serif; letter-spacing: -0.01em; }
+    h1 { line-height: 1.2 !important; letter-spacing: -0.02em !important; }
+    /* sans for UI labels */
+    nav, button, input, .nav-link, .tab-btn, .scholar-link, .tag, .year-badge, .kci-badge, .scopus-badge, .intl-badge,
+    .req-pill, .sel-pill, .base-pill, .pre-pill, .career-year, .gtag-badge, .yh-count, #pubCount, dt, .uppercase, footer, #pubMore {
+      font-family: 'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+    }
+    /* type scale: no text below 12px, body text readable */
+    body .text-xs { font-size: 0.8125rem; line-height: 1.6; }
+    body .text-sm { font-size: 0.9375rem; }
+    body .text-\[11px\] { font-size: 0.75rem; }
+    body .text-slate-500 { color: var(--muted); }
+    body .text-slate-400 { color: #596273; }
+    body .text-slate-600 { color: #374151; }
+    .year-badge, .career-year, .kci-badge, .scopus-badge, .intl-badge, .req-pill, .sel-pill, .base-pill, .pre-pill, .gtag-badge, .year-head .yh-count { font-size: 0.75rem; }
+    .year-head .yh-count { color: #596273; }
+
+    /* flat surfaces: hairline instead of glass + shadow */
+    .glass, .fcard { background: rgba(255,255,255,0.55); backdrop-filter: none; -webkit-backdrop-filter: none; border: 1px solid var(--rule); box-shadow: none; }
+    .glass.rounded-2xl, .fcard.rounded-2xl, .rounded-2xl { border-radius: 6px; }
+    .nav-glass { background: rgba(247,244,236,0.96); backdrop-filter: none; -webkit-backdrop-filter: none; border-bottom: 1px solid var(--rule); }
+    #navbar.nav-compact { background: rgba(247,244,236,0.98); }
+    #navbar > div.hidden { background: transparent !important; border: 0 !important; }
+    .card-hover:hover { transform: none; border-color: var(--navy); box-shadow: none; }
+    .pub-item:hover { transform: none; border-color: var(--navy); }
+    .float-anim, .float-anim-2, .float-anim-3, .float-anim-4, .float-anim-5 { animation: none; }
+    #scrollProgress { background: var(--navy); }
+    ::-webkit-scrollbar-track { background: var(--paper); }
+    ::-webkit-scrollbar-thumb { background: rgba(35,57,91,0.45); }
+
+    /* accent: navy replaces gold */
+    .nav-link.active { color: var(--navy); background: rgba(35,57,91,0.08); font-weight: 700; }
+    .tag, .year-badge, .career-year, .req-pill, #pubMore, .gtag-badge { background: rgba(35,57,91,0.07); border: 1px solid rgba(35,57,91,0.28); color: var(--navy); }
+    #pubMore:hover { background: rgba(35,57,91,0.14); border-color: var(--navy); }
+    .active-tab { background: var(--navy) !important; border-color: var(--navy) !important; color: #fff !important; }
+    .tab-btn { color: var(--muted); background: transparent; border: 1px solid var(--rule); min-height: 44px; }
+    .tab-btn:hover { color: var(--ink); background: rgba(27,31,42,0.05); }
+    .kci-badge { background: transparent; border: 1px solid rgba(35,57,91,0.35); color: var(--navy); }
+    .scopus-badge { background: var(--navy); border: 1px solid var(--navy); color: #fff; }
+    .intl-badge { background: transparent; border: 1px solid rgba(27,31,42,0.35); color: #374151; }
+    .sel-pill, .base-pill { background: transparent; border: 1px solid rgba(27,31,42,0.28); color: #374151; }
+    .pre-pill { background: transparent; border: 1px solid rgba(27,31,42,0.28); color: #374151; }
+    .year-head .yh-label { color: var(--navy); font-family: 'Noto Serif KR',serif; }
+    .year-head .yh-line { background: var(--rule); }
+    .scholar-link { background: transparent; border: 1px solid rgba(27,31,42,0.3); color: #374151; min-height: 44px; }
+    .scholar-link:hover { color: var(--navy); border-color: var(--navy); background: rgba(35,57,91,0.06); }
+    .pub-search { background: #fff; border: 1px solid rgba(27,31,42,0.3); min-height: 44px; }
+    .pub-search:focus { border-color: var(--navy); }
+    .pub-search::placeholder { color: #6B7280; }
+    .avatar { background: rgba(35,57,91,0.08); border: 1px solid rgba(35,57,91,0.4); }
+    .avatar .initial { color: var(--navy); font-family: 'Noto Serif KR',serif; }
+    .gallery-ph { background: rgba(35,57,91,0.05); color: rgba(35,57,91,0.7); }
+    #backToTop { background: #fff; border: 1px solid var(--navy); color: var(--navy); backdrop-filter: none; -webkit-backdrop-filter: none; }
+    #backToTop:hover { background: rgba(35,57,91,0.1); }
+    #mobileMenu { min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+    .bg-gold { background-color: var(--navy); }
+    .hover\:bg-gold-light:hover { background-color: #35507F; }
+
+    /* ═══ Motion & course colors ═══ */
+    @keyframes riseIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+    .hero-in { opacity: 0; animation: riseIn 0.7s cubic-bezier(.2,.7,.2,1) forwards; animation-delay: calc(var(--i, 0) * 90ms + 80ms); }
+    @keyframes pulseDot { 0%,100% { box-shadow: 0 0 0 0 rgba(var(--rgb,35,57,91),0.45); } 70% { box-shadow: 0 0 0 8px rgba(var(--rgb,35,57,91),0); } }
+    .live-dot { animation: pulseDot 2.2s ease-out infinite; }
+    .reveal { opacity: 0; transform: translateY(12px); transition: opacity 0.6s ease, transform 0.6s cubic-bezier(.2,.7,.2,1); }
+    .reveal.in { opacity: 1; transform: none; }
+
+    /* course cards: color by kind, chip by semester */
+    .course { border-left: 4px solid var(--c, #999); }
+    .course-pre  { --c: #0F766E; --rgb: 15,118,110; }
+    .course-sel  { --c: #23395B; --rgb: 35,57,91; }
+    .course-grad { --c: #8B2E3C; --rgb: 139,46,60; }
+    .course-micro{ --c: #5B3F8C; --rgb: 91,63,140; }
+    .course.card-hover:hover { border-color: var(--rule); border-left-color: var(--c); transform: translateY(-2px); }
+    .course-pre  .pre-pill  { background: rgba(15,118,110,0.1);  border: 1px solid rgba(15,118,110,0.4);  color: #0F766E; }
+    .course-sel  .sel-pill  { background: rgba(35,57,91,0.09);   border: 1px solid rgba(35,57,91,0.4);    color: #23395B; }
+    .course-grad .sel-pill  { background: rgba(139,46,60,0.09);  border: 1px solid rgba(139,46,60,0.4);   color: #8B2E3C; }
+    .course-micro .base-pill{ background: rgba(91,63,140,0.1);   border: 1px solid rgba(91,63,140,0.4);   color: #5B3F8C; }
+    .sem-row { display: flex; align-items: center; gap: 8px; }
+    .sem { display: inline-block; padding: 0 9px; border-radius: 9999px; border: 1px solid; font-family: 'Noto Sans KR',sans-serif; font-size: 0.75rem; font-weight: 700; line-height: 1.6; }
+    .sem-1 { color: #475569; border-color: rgba(71,85,105,0.4); background: rgba(71,85,105,0.08); }
+    .sem-2 { color: #92600A; border-color: rgba(146,96,10,0.45); background: rgba(146,96,10,0.12); }
+    .now { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; font-family: 'Noto Sans KR',sans-serif; font-size: 0.75rem; font-weight: 700; color: var(--c, var(--navy)); }
+    .now i { width: 8px; height: 8px; border-radius: 9999px; background: var(--c, var(--navy)); animation: pulseDot 2.2s ease-out infinite; }
+    .legend { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; margin-bottom: 1.5rem; font-family: 'Noto Sans KR',sans-serif; font-size: 0.8125rem; color: var(--muted); }
+    .legend .k { display: inline-flex; align-items: center; gap: 6px; }
+    .legend .k i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+
+    /* headline accent: slow navy-to-teal gradient on "마케팅" */
+    @keyframes gradShift { to { background-position: 100% center; } }
+    .grad-text { background: linear-gradient(100deg, #1E3A6B 0%, #3A6FB0 45%, #0F766E 100%); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; animation: gradShift 6s ease-in-out infinite alternate; }
+
+    /* current courses: stronger color */
+    .course.is-now { background: rgba(var(--rgb),0.09); border-color: rgba(var(--rgb),0.45); border-left-color: var(--c); box-shadow: 0 0 0 3px rgba(var(--rgb),0.08); }
+    .course.is-now.card-hover:hover { border-color: rgba(var(--rgb),0.55); border-left-color: var(--c); }
+    .course.is-now .sem-row .sem-2 { background: rgba(146,96,10,0.18); }
+    .cur { padding: 12px 14px; border-radius: 6px; border: 1px solid rgba(var(--rgb),0.4); border-left: 4px solid var(--c); background: rgba(var(--rgb),0.09); }
+    .cur-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; margin-top: 6px; }
+
+    .doi-link { font-family: 'Noto Sans KR',sans-serif; font-size: 0.75rem; font-weight: 700; color: var(--navy); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(35,57,91,0.35); padding: 2px 0; }
+    .doi-link:hover { text-decoration-color: var(--navy); }
+    /* research topics */
+    .topic-no { font-family: 'Noto Sans KR',sans-serif; font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.08em; color: var(--navy); }
+    .topic-papers { list-style: none; margin: 0; padding: 0; }
+    .topic-papers li { padding: 6px 0 6px 14px; position: relative; font-size: 0.9375rem; line-height: 1.6; }
+    .topic-papers li::before { content: ""; position: absolute; left: 0; top: 1.05em; width: 6px; height: 1px; background: var(--navy); }
+    .topic-papers a { color: inherit; text-decoration: underline; text-decoration-color: rgba(35,57,91,0.3); text-underline-offset: 3px; }
+    .topic-papers a:hover { color: var(--navy); text-decoration-color: var(--navy); }
+    .topic-papers .yr { color: var(--muted); font-size: 0.8125rem; font-family: 'Noto Sans KR',sans-serif; margin-left: 6px; }
+    .topic-link { display: inline-block; margin-top: 12px; font-family: 'Noto Sans KR',sans-serif; font-size: 0.8125rem; font-weight: 700; color: var(--navy); border: 1px solid rgba(35,57,91,0.35); border-radius: 9999px; padding: 2px 12px; }
+    details.early summary { cursor: pointer; font-family: 'Noto Sans KR',sans-serif; font-weight: 700; font-size: 0.9375rem; color: var(--navy); padding: 10px 0; min-height: 44px; }
+
+    /* small screens */
+    @media (max-width: 640px) {
+      #navbar { padding-left: 1rem; padding-right: 1rem; }
+      #navbar a[href="#contact"].bg-gold { white-space: nowrap; padding: 0.5rem 0.9rem; font-size: 0.8125rem; }
+      #hero h1 { font-size: 2.25rem !important; }
+      #hero p.max-w-md br { display: none; }
+      #hero dl p { display: none; }
+    }
+
+    /* keyboard focus */
+    a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
+
     /* accessibility: respect reduced motion */
     @media (prefers-reduced-motion: reduce) {
       .shimmer, .float-anim, .float-anim-2, .float-anim-3, .float-anim-4, .float-anim-5, .anim-in { animation: none !important; }
+      .hero-in { animation: none !important; opacity: 1 !important; }
+      .live-dot, .now i { animation: none !important; }
+      .grad-text { animation: none !important; }
+      .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
       html { scroll-behavior: auto; }
     }
   </style>
@@ -322,7 +445,7 @@
 <!-- ═══ NAV ═══ -->
 <nav id="navbar" class="nav-glass fixed top-0 inset-x-0 z-50 flex items-center justify-between px-8 lg:px-14 py-4 transition-all duration-300">
   <a href="#hero">
-    <img src="bufs-logo.png" alt="부산외국어대학교" class="h-10 w-auto">
+    <img src="bufs-logo-clean.png" alt="부산외국어대학교" class="h-10 w-auto">
   </a>
 
   <!-- Center links -->
@@ -366,19 +489,17 @@
 </div>
 
 <!-- ═══ HERO ═══ -->
-<section id="hero" class="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden px-6 pt-28 pb-20 grid-bg">
-  <!-- Glow -->
-  <div class="glow absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[400px] pointer-events-none"></div>
+<section id="hero" class="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden px-6 pt-28 pb-20">
 
   <!-- Tag -->
   <div class="relative z-10 inline-block mb-7 px-5 py-1.5 rounded-full text-xs font-bold tracking-widest text-gold uppercase"
-       style="border:1px solid rgba(168,132,44,0.45); background:rgba(168,132,44,0.08)">
+       style="border:1px solid rgba(35,57,91,0.35); background:transparent">
     부산외국어대학교 · 국제마케팅전공
   </div>
 
   <!-- Headline -->
   <h1 class="relative z-10 text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tighter leading-[1.08] mb-6">
-    AI와 데이터로 여는<br>마케팅의 <span class="shimmer">미래</span>
+    AI와 데이터로 여는<br><span class="grad-text">마케팅</span>의 <span class="text-gold">미래</span>
   </h1>
 
   <!-- Sub -->
@@ -390,7 +511,7 @@
   <!-- CTA -->
   <div class="relative z-10 flex flex-wrap gap-3 justify-center mb-6">
     <a href="#research"
-       class="px-7 py-3 rounded-full font-semibold bg-gold text-white hover:bg-gold-light transition-all text-sm shadow-lg shadow-yellow-900/20">
+       class="px-7 py-3 rounded-full font-semibold bg-gold text-white hover:bg-gold-light transition-all text-sm">
       연구실적 보기
     </a>
     <a href="#contact"
@@ -400,19 +521,11 @@
   </div>
 
   <!-- Scholar profile links -->
-  <!-- TODO: 실제 프로필 URL로 교체 필요 (Google Scholar / ORCID / KRI) -->
+  <!-- Google Scholar / KRI 버튼은 URL 확정 시 추가 (현재 숨김) -->
   <div class="relative z-10 flex flex-wrap gap-2 justify-center mb-14">
-    <a href="#" class="scholar-link" target="_blank" rel="noopener">
-      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zm-7 9.18v4L12 21l7-3.82v-4L12 17l-7-4.82z"/></svg>
-      Google Scholar
-    </a>
-    <a href="#" class="scholar-link" target="_blank" rel="noopener">
+    <a href="https://orcid.org/0000-0002-9913-2788" class="scholar-link" target="_blank" rel="noopener">
       <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM8.6 17H7.1V9.6h1.5V17zm-.75-8.4a.95.95 0 1 1 0-1.9.95.95 0 0 1 0 1.9zm6.05 8.4h-1.5V9.6h1.44v1h.02c.3-.55 1.04-1.13 2.14-1.13 2.29 0 2.71 1.5 2.71 3.46V17h-1.5v-3.78c0-.9-.02-2.06-1.26-2.06-1.26 0-1.45.98-1.45 2V17z"/></svg>
       ORCID
-    </a>
-    <a href="#" class="scholar-link" target="_blank" rel="noopener">
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-      KRI 연구자정보
     </a>
     <a href="mailto:sweum@bufs.ac.kr" class="scholar-link">
       <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 0 0 2.22 0L21 8M5 19h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2z"/></svg>
@@ -420,65 +533,53 @@
     </a>
   </div>
 
-  <!-- Floating stat cards -->
-  <div class="relative z-10 w-full max-w-4xl hidden lg:block" style="height:380px">
-    <!-- Card 1: Papers -->
-    <div class="fcard float-anim absolute left-0 top-5 w-48 rounded-2xl p-5">
-      <p class="text-xs text-slate-500 mb-2">발표 논문 수</p>
-      <p class="text-4xl font-extrabold tracking-tight"><span data-stat="totalPapers" data-countup>0</span><span class="text-base text-slate-500 font-normal">편</span></p>
-      <p class="text-xs text-gold mt-2">↑ KCI / SCI 포함</p>
-    </div>
-
-    <!-- Card 2: Current semester -->
-    <div class="fcard float-anim-2 absolute left-1/2 -translate-x-1/2 top-0 w-56 rounded-2xl p-5 text-center">
-      <p class="text-xs text-slate-500 mb-2 flex items-center justify-center gap-1.5">
-        <span class="inline-block w-2 h-2 rounded-full bg-green-500 shadow-[0_0_6px_#22c55e]"></span>현재 강의 중
-      </p>
-      <p class="text-xl font-bold">2026학년도 2학기</p>
-      <p class="text-xs text-gold mt-1">경영학원론, 마케팅조사방법론, AI활용 디지털마케팅_카카오테크포임팩트</p>
-    </div>
-
-    <!-- Card 3: Projects -->
-    <div class="fcard float-anim-3 absolute right-0 top-5 w-56 rounded-2xl p-5">
-      <p class="text-xs text-slate-500 mb-2">연구 프로젝트</p>
-      <p class="text-4xl font-extrabold tracking-tight"><span data-stat="totalProjects" data-countup>0</span><span class="text-base text-slate-500 font-normal">건</span></p>
-      <p class="text-[11px] text-gold mt-2 whitespace-nowrap">한국연구재단 · 정석물류학술재단</p>
-    </div>
-
-    <!-- Card 4: Interests -->
-    <div class="fcard float-anim-4 absolute left-16 bottom-0 w-56 rounded-2xl p-5">
-      <p class="text-xs text-slate-500 mb-3">연구 관심분야</p>
-      <ul class="space-y-1.5">
-        <li class="flex items-center gap-2 text-xs"><span class="w-1.5 h-1.5 rounded-full bg-gold flex-shrink-0"></span><span class="font-semibold">소비자행동</span></li>
-        <li class="flex items-center gap-2 text-xs"><span class="w-1.5 h-1.5 rounded-full bg-gold flex-shrink-0"></span><span class="font-semibold">국제브랜드관리</span></li>
-        <li class="flex items-center gap-2 text-xs"><span class="w-1.5 h-1.5 rounded-full bg-gold flex-shrink-0"></span><span class="font-semibold">AI(인공지능)</span></li>
-        <li class="flex items-center gap-2 text-xs"><span class="w-1.5 h-1.5 rounded-full bg-gold flex-shrink-0"></span><span class="font-semibold">디지털마케팅</span></li>
-        <li class="flex items-center gap-2 text-xs"><span class="w-1.5 h-1.5 rounded-full bg-gold flex-shrink-0"></span><span class="font-semibold">빅데이터분석</span></li>
+  <!-- Key figures -->
+  <div class="relative z-10 w-full max-w-4xl mt-2">
+    <dl class="grid grid-cols-2 sm:grid-cols-4 border-y divide-x divide-y sm:divide-y-0" style="border-color:rgba(27,31,42,0.18); --tw-divide-opacity:1">
+      <div class="py-6 px-3 text-center" style="border-color:rgba(27,31,42,0.18)">
+        <dt class="text-sm text-slate-500 mb-2">발표 논문</dt>
+        <dd class="font-serif text-4xl sm:text-5xl font-bold tracking-tight"><span data-stat="totalPapers" data-countup>46</span><span class="text-base text-slate-500 font-normal ml-1">편</span></dd>
+        <p class="text-sm text-gold mt-2">KCI · SCI 포함</p>
+      </div>
+      <div class="py-6 px-3 text-center" style="border-color:rgba(27,31,42,0.18)">
+        <dt class="text-sm text-slate-500 mb-2">연구 프로젝트</dt>
+        <dd class="font-serif text-4xl sm:text-5xl font-bold tracking-tight"><span data-stat="totalProjects" data-countup>3</span><span class="text-base text-slate-500 font-normal ml-1">건</span></dd>
+        <p class="text-sm text-gold mt-2">한국연구재단 · 정석물류학술재단</p>
+      </div>
+      <div class="py-6 px-3 text-center" style="border-color:rgba(27,31,42,0.18)">
+        <dt class="text-sm text-slate-500 mb-2">지도 학생</dt>
+        <dd class="font-serif text-4xl sm:text-5xl font-bold tracking-tight"><span data-countup data-target="75">75</span><span class="text-base text-slate-500 font-normal ml-1">명</span></dd>
+        <p class="text-sm text-gold mt-2">2026학년도 2학기 · 학부 · 대학원</p>
+      </div>
+      <div class="py-6 px-3 text-center" style="border-color:rgba(27,31,42,0.18)">
+        <dt class="text-sm text-slate-500 mb-2">수강 학생</dt>
+        <dd class="font-serif text-4xl sm:text-5xl font-bold tracking-tight"><span data-countup data-target="267">267</span><span class="text-base text-slate-500 font-normal ml-1">명</span></dd>
+        <p class="text-sm text-gold mt-2">2026학년도 2학기</p>
+      </div>
+    </dl>
+    <!-- Current courses -->
+    <section aria-label="현재 강의" class="mt-8 text-left rounded-md overflow-hidden" style="background:rgba(255,255,255,0.7); border:1px solid rgba(27,31,42,0.16)">
+      <div style="height:4px; background:linear-gradient(90deg,#0F766E,#23395B 55%,#5B3F8C)"></div>
+      <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 px-6 pt-5">
+        <p class="text-sm font-bold text-gold flex items-center gap-2"><span class="inline-block w-2 h-2 rounded-full bg-gold live-dot"></span>현재 강의 중</p>
+        <p class="font-serif text-lg font-bold">2026학년도 2학기</p>
+      </div>
+      <ul class="grid md:grid-cols-3 gap-3 px-5 pb-5 pt-3">
+        <li class="cur course-pre">
+          <p class="font-serif text-lg font-semibold leading-snug">경영학원론</p>
+          <p class="cur-meta"><span class="pre-pill">선이수과목</span><span class="text-sm text-slate-500">학부 · 3학점</span></p>
+        </li>
+        <li class="cur course-sel">
+          <p class="font-serif text-lg font-semibold leading-snug">마케팅조사방법론</p>
+          <p class="cur-meta"><span class="sel-pill">전공선택</span><span class="text-sm text-slate-500">학부 · 3학점</span></p>
+        </li>
+        <li class="cur course-micro">
+          <p class="font-serif text-lg font-semibold leading-snug">AI활용 디지털마케팅_카카오테크포임팩트</p>
+          <p class="cur-meta"><span class="base-pill">마이크로전공</span><span class="text-sm text-slate-500">3학점</span></p>
+        </li>
       </ul>
-    </div>
-
-    <!-- Card 5: Students -->
-    <div class="fcard float-anim-5 absolute right-16 bottom-0 w-44 rounded-2xl p-5">
-      <p class="text-xs text-slate-500 mb-2">지도 학생</p>
-      <p class="text-4xl font-extrabold tracking-tight"><span data-countup data-target="66">0</span><span class="text-base text-slate-500 font-normal">명</span></p>
-      <p class="text-xs text-gold mt-2">학부 · 대학원 통합</p>
-    </div>
-  </div>
-
-  <!-- Mobile mini stats -->
-  <div class="grid grid-cols-3 gap-3 w-full max-w-sm lg:hidden mt-4">
-    <div class="fcard rounded-2xl p-4 text-center">
-      <p class="text-2xl font-extrabold text-gold"><span data-stat="totalPapers" data-countup>0</span></p>
-      <p class="text-xs text-slate-500 mt-1">논문</p>
-    </div>
-    <div class="fcard rounded-2xl p-4 text-center">
-      <p class="text-2xl font-extrabold text-gold"><span data-stat="totalProjects" data-countup>0</span></p>
-      <p class="text-xs text-slate-500 mt-1">프로젝트</p>
-    </div>
-    <div class="fcard rounded-2xl p-4 text-center">
-      <p class="text-2xl font-extrabold text-gold"><span data-countup data-target="66">0</span></p>
-      <p class="text-xs text-slate-500 mt-1">지도학생</p>
-    </div>
+    </section>
+    <p class="mt-3 text-sm text-slate-500">연구 관심분야 · 소비자행동 · 국제브랜드관리 · AI(인공지능) · 디지털마케팅 · 빅데이터분석</p>
   </div>
 </section>
 
@@ -493,18 +594,14 @@
   <div class="glass rounded-2xl p-7 card-hover mb-4 flex flex-col sm:flex-row items-center sm:items-start gap-6">
     <div class="avatar">
       <span class="initial">엄</span>
-      <!-- photo.jpg 파일을 폴더에 넣으면 자동으로 사진이 표시됩니다 -->
-      <img src="photo.jpg" alt="엄성원 교수" onerror="this.remove()">
     </div>
     <div class="text-center sm:text-left flex-1">
       <h3 class="text-2xl font-extrabold tracking-tight mb-1">엄성원 <span class="text-base font-semibold text-slate-500">교수</span></h3>
       <p class="text-sm text-gold mb-3">부산외국어대학교 국제마케팅전공 · 입학홍보처장</p>
-      <p class="text-sm text-slate-500 leading-relaxed mb-4">마케팅 애널리틱스와 텍스트마이닝 기법으로 소비자의 목소리를 데이터에서 읽어내는 연구를 하고 있습니다. 한국연구재단·정석물류학술재단 과제를 수행하며 KCI·SCI급 학술지에 44편의 논문을 발표했습니다.</p>
-      <!-- TODO: 실제 프로필 URL로 교체 필요 -->
+      <p class="text-sm text-slate-500 leading-relaxed mb-4">마케팅 애널리틱스와 텍스트마이닝 기법으로 소비자의 목소리를 데이터에서 읽어내는 연구를 하고 있습니다. 한국연구재단·정석물류학술재단 과제를 수행하며 KCI·SCI급 학술지에 <span data-stat-text="totalPapers">46</span>편의 논문을 발표했습니다.</p>
+      <!-- Google Scholar / KRI 버튼은 URL 확정 시 추가 (현재 숨김) -->
       <div class="flex flex-wrap gap-2 justify-center sm:justify-start">
-        <a href="#" class="scholar-link" target="_blank" rel="noopener">Google Scholar</a>
-        <a href="#" class="scholar-link" target="_blank" rel="noopener">ORCID</a>
-        <a href="#" class="scholar-link" target="_blank" rel="noopener">KRI 연구자정보</a>
+        <a href="https://orcid.org/0000-0002-9913-2788" class="scholar-link" target="_blank" rel="noopener">ORCID</a>
       </div>
     </div>
   </div>
@@ -526,9 +623,10 @@
       <p class="text-xs font-bold tracking-widest text-gold uppercase mb-5">연락처</p>
       <dl class="space-y-3.5">
         <div class="flex gap-4"><dt class="text-xs text-slate-500 w-20 pt-0.5">연구실</dt><dd class="text-sm">트리니티홀(D) 613</dd></div>
+        <div class="flex gap-4"><dt class="text-xs text-slate-500 w-20 pt-0.5">집무실</dt><dd class="text-sm leading-relaxed">본관(F) 301-2 (입학홍보처장)<br>051-509-5300</dd></div>
         <div class="flex gap-4"><dt class="text-xs text-slate-500 w-20 pt-0.5">이메일</dt><dd class="text-sm">sweum@bufs.ac.kr</dd></div>
         <div class="flex gap-4"><dt class="text-xs text-slate-500 w-20 pt-0.5">전화</dt><dd class="text-sm">051-509-6058</dd></div>
-        <div class="flex gap-4"><dt class="text-xs text-slate-500 w-20 pt-0.5">상담시간</dt><dd class="text-sm">화 14:00–16:00 · 목 10:00–12:00</dd></div>
+        <div class="flex gap-4"><dt class="text-xs text-slate-500 w-20 pt-0.5">상담시간</dt><dd class="text-sm leading-relaxed">월 14:00–16:00 · 목 14:00–16:00<br>BUFS인재시스템 등록 후 확인</dd></div>
       </dl>
     </div>
 
@@ -583,6 +681,69 @@
       </div>
     </div>
   </div>
+</section>
+
+<hr class="border-dim max-w-5xl mx-auto">
+
+<!-- ═══ RESEARCH TOPICS ═══ -->
+<section id="topics" class="section-tint max-w-5xl mx-auto px-6 py-20">
+  <p class="text-xs font-bold tracking-widest text-gold uppercase mb-3">Research Topics</p>
+  <h2 class="text-3xl lg:text-4xl font-extrabold tracking-tight mb-3">대표 연구 주제</h2>
+  <p class="text-slate-500 text-sm mb-12 max-w-xl">발표한 논문 46편에서 정리한 주요 연구 흐름입니다. 논문 제목을 누르면 원문(DOI)으로 이동합니다.</p>
+
+  <div class="grid md:grid-cols-2 gap-4">
+    <article class="glass rounded-2xl p-7 card-hover">
+      <p class="topic-no">01</p>
+      <h3 class="font-serif text-xl font-bold leading-snug mt-1 mb-3">비정형 데이터 기반 소비자행동분석</h3>
+      <p class="text-sm text-slate-500 mb-4">온라인 후기와 게시글, 강의평가를 토픽모델링과 감성분석, 네트워크 분석으로 읽어 소비자와 학생의 인식을 측정합니다.</p>
+      <p class="text-xs font-bold tracking-widest text-gold uppercase mb-1">대표 논문</p>
+      <ul class="topic-papers">
+        <li><a href="https://doi.org/10.37297/ier.2026.6.11.3.423" target="_blank" rel="noopener">딥러닝기반 친환경 소비자 불만족 감성강도 측정 연구</a><span class="yr">2026</span></li>
+        <li><a href="https://doi.org/10.20288/jcs.2024.27.4.163" target="_blank" rel="noopener">토픽모델링을 활용한 중국 e-커머스에 대한 소비자 인식 연구</a><span class="yr">2024</span></li>
+        <li><a href="https://doi.org/10.1108/imds-09-2020-0545" target="_blank" rel="noopener">Using Text Mining to Measure Mobile Service Quality</a><span class="yr">2021</span></li>
+      </ul>
+    </article>
+    <article class="glass rounded-2xl p-7 card-hover">
+      <p class="topic-no">02</p>
+      <h3 class="font-serif text-xl font-bold leading-snug mt-1 mb-3">데이터애널리틱스 기반 고객만족연구</h3>
+      <p class="text-sm text-slate-500 mb-4">만족과 불만족에 서로 다르게 작용하는 서비스 품질 속성을 3요인 이론과 비대칭 분석, 로짓분석으로 규명합니다. 항공, 호텔, 카페, 모바일뱅킹, 배달 서비스를 다룹니다.</p>
+      <p class="text-xs font-bold tracking-widest text-gold uppercase mb-1">대표 논문</p>
+      <ul class="topic-papers">
+        <li><a href="https://doi.org/10.3390/businesses5010007" target="_blank" rel="noopener">Asymmetric Effect of Customer Opinions for Service Quality Attributes: Textmining Approach</a><span class="yr">2025</span></li>
+        <li><a href="https://doi.org/10.31667/jhts.2023.04.99.81" target="_blank" rel="noopener">로짓분석(logit analysis)을 활용한 호텔 서비스 품질 속성에 관한 연구</a><span class="yr">2023</span></li>
+        <li><a href="https://doi.org/10.37202/kmmr.2023.28.3.1" target="_blank" rel="noopener">고객 만족의 3 요인 이론을 이용한 경쟁사 서비스 품질 속성 비교</a><span class="yr">2023</span></li>
+      </ul>
+      <span class="topic-link">연구 프로젝트 · 비대칭영향력-감성성과분석(AISPA), 정석물류학술재단</span>
+    </article>
+    <article class="glass rounded-2xl p-7 card-hover">
+      <p class="topic-no">03</p>
+      <h3 class="font-serif text-xl font-bold leading-snug mt-1 mb-3">온라인 플랫폼을 통한 가치창출과 가치 파괴 연구</h3>
+      <p class="text-sm text-slate-500 mb-4">온라인 플랫폼에서 나타나는 소비자 인식과 가치공동창출·가치공동파괴 행동을 분석합니다. 중국 e커머스와 해외 온라인 플랫폼, 배달 플랫폼을 다룹니다.</p>
+      <p class="text-xs font-bold tracking-widest text-gold uppercase mb-1">대표 논문</p>
+      <ul class="topic-papers">
+        <li><a href="https://doi.org/10.37297/ier.2024.9.9.3.215" target="_blank" rel="noopener">해외 온라인 플랫폼에 대한 소비자 인식 연구: 중국 e커머스를 중심으로</a><span class="yr">2024</span></li>
+        <li><a href="https://doi.org/10.37727/jkdas.2023.25.3.1005" target="_blank" rel="noopener">배달 서비스 플랫폼의 가치공동파괴와 회복에 관한 연구</a><span class="yr">2023</span></li>
+        <li><a href="https://doi.org/10.37297/ier.2022.08.7.2.1" target="_blank" rel="noopener">토픽모델링을 활용한 가치공동창출과 가치공동파괴 요인 분석 연구</a><span class="yr">2022</span></li>
+      </ul>
+      <span class="topic-link">연구 프로젝트 · 소비자참여 기반 공유가치창출 프레임워크, 한국연구재단</span>
+    </article>
+    <article class="glass rounded-2xl p-7 card-hover">
+      <p class="topic-no">04</p>
+      <h3 class="font-serif text-xl font-bold leading-snug mt-1 mb-3">고등교육과 AI를 통한 학생만족 서비스 품질 연구</h3>
+      <p class="text-sm text-slate-500 mb-4">대학생의 만족과 강의평가, 교육품질, 디지털 마케팅과 생성형 인공지능 경험을 데이터로 분석합니다.</p>
+      <p class="text-xs font-bold tracking-widest text-gold uppercase mb-1">대표 논문</p>
+      <ul class="topic-papers">
+        <li><a href="https://doi.org/10.37297/ier.2025.12.10.4.213" target="_blank" rel="noopener">생성형 인공지능에 대한 대학생 경험 조사연구: B대학을 중심으로</a><span class="yr">2025</span></li>
+        <li><a href="https://doi.org/10.1177/18479790251339786" target="_blank" rel="noopener">Effects of digital marketing on departmental choice and awareness in higher education</a><span class="yr">2025</span></li>
+        <li><a href="https://doi.org/10.37727/jkdas.2022.24.5.1941" target="_blank" rel="noopener">학생만족도에 대한 교육품질 속성의 비대칭·비선형 영향 연구</a><span class="yr">2022</span></li>
+      </ul>
+    </article>
+  </div>
+
+  <details class="early mt-6">
+    <summary>초기 연구 주제 (2014–2019)</summary>
+    <p class="text-sm text-slate-500 max-w-2xl pt-1">조직시민행동과 협업 Quality, 공급업체와 구매업체의 관계 등 조직 및 B2B 관계 연구, 공연 경험과 e스포츠 등 문화 소비 연구, 소셜미디어 인게이지먼트의 문화 간 차이 연구를 수행했습니다.</p>
+  </details>
 </section>
 
 <hr class="border-dim max-w-5xl mx-auto">
@@ -661,6 +822,14 @@
     <button data-ttab="undergrad" class="tab-btn active-tab px-5 py-2 rounded-full text-sm font-semibold transition-all">학부 강의</button>
     <button data-ttab="grad"      class="tab-btn px-5 py-2 rounded-full text-sm font-semibold transition-all">대학원 강의</button>
     <button data-ttab="micro"     class="tab-btn px-5 py-2 rounded-full text-sm font-semibold transition-all">마이크로전공</button>
+  </div>
+
+  <div class="legend" aria-label="범례">
+    <span class="k"><i style="background:#0F766E"></i>선이수과목</span>
+    <span class="k"><i style="background:#23395B"></i>전공선택</span>
+    <span class="k"><i style="background:#8B2E3C"></i>대학원</span>
+    <span class="k"><i style="background:#5B3F8C"></i>마이크로전공</span>
+    <span class="k"><span class="sem sem-1">1학기</span><span class="sem sem-2">2학기</span></span>
   </div>
 
   <!-- Undergrad -->
@@ -896,18 +1065,26 @@
       </dl>
     </div>
     <div class="glass rounded-2xl p-7 card-hover">
+      <p class="text-xs font-bold tracking-widest text-gold uppercase mb-5">입학홍보처장 집무실</p>
+      <dl class="space-y-3.5">
+        <div class="flex gap-4"><dt class="text-xs text-slate-500 w-20 pt-0.5">위치</dt><dd class="text-sm leading-relaxed">부산광역시 금정구 금샘로 485번길 65<br>부산외국어대학교 본관(F) 301-2</dd></div>
+        <div class="flex gap-4"><dt class="text-xs text-slate-500 w-20 pt-0.5">전화</dt><dd class="text-sm">051-509-5300</dd></div>
+      </dl>
+    </div>
+    <div class="glass rounded-2xl p-7 card-hover md:col-span-2">
       <p class="text-xs font-bold tracking-widest text-gold uppercase mb-5">온라인 문의</p>
       <dl class="space-y-3.5">
         <div class="flex gap-4"><dt class="text-xs text-slate-500 w-20 pt-0.5">이메일</dt><dd class="text-sm">sweum@bufs.ac.kr</dd></div>
-        <div class="flex gap-4"><dt class="text-xs text-slate-500 w-20 pt-0.5">상담시간</dt><dd class="text-sm leading-relaxed">화요일 14:00–16:00<br>목요일 10:00–12:00</dd></div>
+        <div class="flex gap-4"><dt class="text-xs text-slate-500 w-20 pt-0.5">상담시간</dt><dd class="text-sm leading-relaxed">월요일 14:00–16:00<br>목요일 14:00–16:00</dd></div>
+        <div class="flex gap-4"><dt class="text-xs text-slate-500 w-20 pt-0.5">상담 신청</dt><dd class="text-sm leading-relaxed">먼저 BUFS인재시스템에 등록한 후 상담 시간을 확인해 주세요.</dd></div>
       </dl>
     </div>
 
     <!-- Department YouTube -->
     <a href="https://www.youtube.com/@bufs_7311" target="_blank" rel="noopener"
        class="glass rounded-2xl p-7 card-hover md:col-span-2 flex flex-col sm:flex-row items-center gap-6 group">
-      <div class="shrink-0 flex items-center justify-center w-16 h-16 rounded-2xl" style="background:rgba(255,0,0,0.07); border:1px solid rgba(255,0,0,0.25)">
-        <svg class="w-9 h-9" viewBox="0 0 24 24" fill="#ff0000"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      <div class="shrink-0 flex items-center justify-center w-16 h-16 rounded-2xl" style="background:rgba(35,57,91,0.06); border:1px solid rgba(35,57,91,0.25)">
+        <svg class="w-9 h-9" viewBox="0 0 24 24" fill="#23395B"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
       </div>
       <div class="text-center sm:text-left flex-1">
         <p class="text-xs font-bold tracking-widest text-gold uppercase mb-1">학과 유튜브</p>
@@ -915,7 +1092,7 @@
         <p class="text-sm text-slate-500 mt-0.5">학과 소식과 강의·활동 영상을 확인하세요 · @bufs_7311</p>
       </div>
       <span class="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-all"
-            style="background:#ff0000" onmouseover="this.style.background='#cc0000'" onmouseout="this.style.background='#ff0000'">
+            style="background:#23395B" onmouseover="this.style.background='#35507F'" onmouseout="this.style.background='#23395B'">
         채널 방문하기
         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
       </span>
@@ -925,7 +1102,7 @@
 
 <!-- ═══ FOOTER ═══ -->
 <footer class="border-dim border-t py-8 text-center" style="background:rgba(168,132,44,0.05)">
-  <img src="bufs-logo.png" alt="부산외국어대학교" class="h-10 w-auto mx-auto mb-3">
+  <img src="bufs-logo-clean.png" alt="부산외국어대학교" class="h-10 w-auto mx-auto mb-3">
   <p class="text-xs text-slate-500">© 2026 Busan University of Foreign Studies. All rights reserved.</p>
 </footer>
 
@@ -944,52 +1121,52 @@
   // grade: 'kci' | 'sci' | 'intl'
   // ══════════════════════════════════════════
   const PUBLICATIONS = [
-    { date: '2026.06', title: '딥러닝기반 친환경 소비자 불만족 감성강도 측정 연구', venue: '혁신기업연구', publisher: '사회혁신기업연구원', grade: 'kci' },
+    { date: '2026.06', title: '딥러닝기반 친환경 소비자 불만족 감성강도 측정 연구', venue: '혁신기업연구', publisher: '사회혁신기업연구원', doi: '10.37297/ier.2026.6.11.3.423', grade: 'kci' },
     { date: '2026.02', title: '대학생 PSC 핵심역량 진단도구 개발 연구 -B대학 사례를 중심으로-', venue: '다문화사회와 교육연구', publisher: '', grade: 'kci' },
-    { date: '2025.12', title: '생성형 인공지능에 대한 대학생 경험 조사연구: B대학을 중심으로', venue: '혁신기업연구', publisher: '사회혁신기업연구원', grade: 'kci' },
-    { date: '2025.05', title: 'Effects of digital marketing on departmental choice and awareness in higher education', venue: 'International Journal of Engineering Business Management', publisher: 'Sage', grade: 'sci' },
-    { date: '2025.02', title: 'Asymmetric Effect of Customer Opinions for Service Quality Attributes: Textmining Approach', venue: 'BUSINESSES', publisher: 'MDPI', grade: 'intl' },
-    { date: '2024.12', title: '토픽모델링을 활용한 중국 e-커머스에 대한 소비자 인식 연구', venue: 'Journal of China Studies', publisher: '중국전략연구소', grade: 'kci' },
-    { date: '2024.09', title: '해외 온라인 플랫폼에 대한 소비자 인식 연구: 중국 e커머스를 중심으로', venue: '혁신기업연구', publisher: '사회혁신기업연구원', grade: 'kci' },
+    { date: '2025.12', title: '생성형 인공지능에 대한 대학생 경험 조사연구: B대학을 중심으로', venue: '혁신기업연구', publisher: '사회혁신기업연구원', doi: '10.37297/ier.2025.12.10.4.213', grade: 'kci' },
+    { date: '2025.05', title: 'Effects of digital marketing on departmental choice and awareness in higher education', venue: 'International Journal of Engineering Business Management', publisher: 'Sage', doi: '10.1177/18479790251339786', grade: 'sci' },
+    { date: '2025.02', title: 'Asymmetric Effect of Customer Opinions for Service Quality Attributes: Textmining Approach', venue: 'BUSINESSES', publisher: 'MDPI', doi: '10.3390/businesses5010007', grade: 'intl' },
+    { date: '2024.12', title: '토픽모델링을 활용한 중국 e-커머스에 대한 소비자 인식 연구', venue: 'Journal of China Studies', publisher: '중국전략연구소', doi: '10.20288/jcs.2024.27.4.163', grade: 'kci' },
+    { date: '2024.09', title: '해외 온라인 플랫폼에 대한 소비자 인식 연구: 중국 e커머스를 중심으로', venue: '혁신기업연구', publisher: '사회혁신기업연구원', doi: '10.37297/ier.2024.9.9.3.215', grade: 'kci' },
     { date: '2023.12', title: '로고스경영연구(LMR) 20년: 문헌계량학적 회고', venue: '로고스경영연구', publisher: '한국로고스경영학회', grade: 'kci' },
     { date: '2023.12', title: '감성 분석을 활용한 온라인 식품 유통 플랫폼 브랜드 개성 측정 연구', venue: '마케팅논집(Journal of Marketing Studies)', publisher: '한국전략마케팅학회', grade: 'kci' },
-    { date: '2023.11', title: 'The impact of student engagement on student loyalty and commitment', venue: 'International Journal of Services and Operations Management', publisher: 'Inderscience Publishers', grade: 'sci' },
-    { date: '2023.07', title: '고객 만족의 3 요인 이론을 이용한 경쟁사 서비스 품질 속성 비교: 대한항공과 싱가폴항공을 중심으로', venue: '마케팅관리연구', publisher: '한국마케팅관리학회', grade: 'kci' },
-    { date: '2023.06', title: '배달 서비스 플랫폼의 가치공동파괴와 회복에 관한 연구', venue: 'Journal of The Korean Data Analysis Society', publisher: '한국자료분석학회', grade: 'kci' },
-    { date: '2023.04', title: '로짓분석(logit analysis)을 활용한 호텔 서비스 품질 속성에 관한 연구', venue: '호텔관광연구', publisher: '한국호텔관광학회', grade: 'kci' },
-    { date: '2023.03', title: '토픽모델링을 활용한 항공 서비스 품질 속성 연구', venue: '혁신기업연구', publisher: '사회혁신기업연구원', grade: 'kci' },
-    { date: '2022.10', title: '학생만족도에 대한 교육품질 속성의 비대칭·비선형 영향 연구', venue: 'Journal of The Korean Data Analysis Society', publisher: '한국자료분석학회', grade: 'kci' },
-    { date: '2022.10', title: '항공사 서비스 품질에 대한 고객 가성비 인식에 관한 연구', venue: 'KBM Journal', publisher: 'K기업경영연구원', grade: 'kci' },
-    { date: '2022.10', title: '카페 서비스품질 측정에 관한 연구: 마케팅 애널리틱스 접근법', venue: '경영교육연구', publisher: '한국경영교육학회', grade: 'kci' },
-    { date: '2022.09', title: '3요인 이론을 이용한 경쟁사 속성 비교 연구: 중국항공사와 한국항공사 중심으로', venue: 'Journal of China Studies', publisher: '중국연구소', grade: 'kci' },
-    { date: '2022.08', title: '토픽모델링을 활용한 가치공동창출과 가치공동파괴 요인 분석 연구', venue: '혁신기업연구', publisher: '사회혁신기업연구원', grade: 'kci' },
-    { date: '2022.02', title: '항공사 서비스품질에 대한 고객인식 분석 연구 -A 항공사를 중심으로-', venue: 'KBM Journal', publisher: 'K기업경영연구원', grade: 'kci' },
-    { date: '2021.08', title: '구조적 등위성 분석을 활용한 강의평가 연구', venue: '경영교육연구', publisher: '한국경영교육학회', grade: 'kci' },
+    { date: '2023.11', title: 'The impact of student engagement on student loyalty and commitment', venue: 'International Journal of Services and Operations Management', publisher: 'Inderscience Publishers', doi: '10.1504/ijsom.2023.134815', grade: 'sci' },
+    { date: '2023.07', title: '고객 만족의 3 요인 이론을 이용한 경쟁사 서비스 품질 속성 비교: 대한항공과 싱가폴항공을 중심으로', venue: '마케팅관리연구', publisher: '한국마케팅관리학회', doi: '10.37202/kmmr.2023.28.3.1', grade: 'kci' },
+    { date: '2023.06', title: '배달 서비스 플랫폼의 가치공동파괴와 회복에 관한 연구', venue: 'Journal of The Korean Data Analysis Society', publisher: '한국자료분석학회', doi: '10.37727/jkdas.2023.25.3.1005', grade: 'kci' },
+    { date: '2023.04', title: '로짓분석(logit analysis)을 활용한 호텔 서비스 품질 속성에 관한 연구', venue: '호텔관광연구', publisher: '한국호텔관광학회', doi: '10.31667/jhts.2023.04.99.81', grade: 'kci' },
+    { date: '2023.03', title: '토픽모델링을 활용한 항공 서비스 품질 속성 연구', venue: '혁신기업연구', publisher: '사회혁신기업연구원', doi: '10.37297/ier.2023.3.8.1.159', grade: 'kci' },
+    { date: '2022.10', title: '학생만족도에 대한 교육품질 속성의 비대칭·비선형 영향 연구', venue: 'Journal of The Korean Data Analysis Society', publisher: '한국자료분석학회', doi: '10.37727/jkdas.2022.24.5.1941', grade: 'kci' },
+    { date: '2022.10', title: '항공사 서비스 품질에 대한 고객 가성비 인식에 관한 연구', venue: 'KBM Journal', publisher: 'K기업경영연구원', doi: '10.51858/kbmj.2022.10.6.3.25', grade: 'kci' },
+    { date: '2022.10', title: '카페 서비스품질 측정에 관한 연구: 마케팅 애널리틱스 접근법', venue: '경영교육연구', publisher: '한국경영교육학회', doi: '10.23839/kabe.2022.37.5.1', grade: 'kci' },
+    { date: '2022.09', title: '3요인 이론을 이용한 경쟁사 속성 비교 연구: 중국항공사와 한국항공사 중심으로', venue: 'Journal of China Studies', publisher: '중국연구소', doi: '10.20288/jcs.2022.25.3.65', grade: 'kci' },
+    { date: '2022.08', title: '토픽모델링을 활용한 가치공동창출과 가치공동파괴 요인 분석 연구', venue: '혁신기업연구', publisher: '사회혁신기업연구원', doi: '10.37297/ier.2022.08.7.2.1', grade: 'kci' },
+    { date: '2022.02', title: '항공사 서비스품질에 대한 고객인식 분석 연구 -A 항공사를 중심으로-', venue: 'KBM Journal', publisher: 'K기업경영연구원', doi: '10.51858/kbmj.2022.02.6.1.167', grade: 'kci' },
+    { date: '2021.08', title: '구조적 등위성 분석을 활용한 강의평가 연구', venue: '경영교육연구', publisher: '한국경영교육학회', doi: '10.23839/kabe.2021.36.4.25', grade: 'kci' },
     { date: '2021.06', title: '비대칭성을 활용한 항공 서비스 품질 속성 연구', venue: '한국항공경영학회지', publisher: '한국항공경영학회', grade: 'kci' },
-    { date: '2021.06', title: 'Impact of National Cultural Networks on Trade Network: QAP Analysis', venue: '무역연구', publisher: '한국무역연구원', grade: 'kci' },
+    { date: '2021.06', title: 'Impact of National Cultural Networks on Trade Network: QAP Analysis', venue: '무역연구', publisher: '한국무역연구원', doi: '10.16980/jitc.17.3.202106.11', grade: 'kci' },
     { date: '2021.03', title: '공동가치파괴 행동에 대한 소비자 반응 연구', venue: '경영과 정보연구', publisher: '대한경영정보학회', grade: 'kci' },
-    { date: '2021.02', title: 'Using Text Mining to Measure Mobile Service Quality', venue: 'Industrial Management & Data Systems', publisher: 'Emerald', grade: 'sci' },
-    { date: '2020.08', title: 'Analyzing Core-Periphery Structure among Trade Countries of Agricultural Products', venue: '무역연구', publisher: '한국무역연구원', grade: 'kci' },
+    { date: '2021.02', title: 'Using Text Mining to Measure Mobile Service Quality', venue: 'Industrial Management & Data Systems', publisher: 'Emerald', doi: '10.1108/imds-09-2020-0545', grade: 'sci' },
+    { date: '2020.08', title: 'Analyzing Core-Periphery Structure among Trade Countries of Agricultural Products', venue: '무역연구', publisher: '한국무역연구원', doi: '10.16980/jitc.16.4.202008.121', grade: 'kci' },
     { date: '2020.06', title: '승객 이용 후기의 감성분석을 이용한 항공 서비스 품질 측정', venue: '한국항공경영학회지', publisher: '한국항공경영학회', grade: 'kci' },
     { date: '2020.06', title: '텍스트 마이닝을 활용한 Youtube 광고에 대한 소비자 인식 분석', venue: '경영과 정보연구', publisher: '대한경영정보학회', grade: 'kci' },
     { date: '2020.05', title: 'Using Sentiment Analyze to Analyze the Feedback of Students with Open-ended Questions', venue: '인문사회과학연구', publisher: '인문사회과학연구소', grade: 'kci' },
-    { date: '2020.04', title: '문화공연 청중의 문화적 취향에 관한 연구', venue: '문화와 융합', publisher: '한국문화융합학회', grade: 'kci' },
-    { date: '2019.12', title: '점포 내 고객의 정서적 경험이 재방문의도에 미치는 영향-중국 소비자를 중심으로-', venue: 'Journal of China Studies', publisher: '중국연구소', grade: 'kci' },
+    { date: '2020.04', title: '문화공연 청중의 문화적 취향에 관한 연구', venue: '문화와 융합', publisher: '한국문화융합학회', doi: '10.33645/cnc.2020.04.42.4.757', grade: 'kci' },
+    { date: '2019.12', title: '점포 내 고객의 정서적 경험이 재방문의도에 미치는 영향-중국 소비자를 중심으로-', venue: 'Journal of China Studies', publisher: '중국연구소', doi: '10.20288/jcs.2019.22.4.75', grade: 'kci' },
     { date: '2019.06', title: '증강현실 광고유형이 브랜드애착에 미치는 영향에 관한 연구', venue: '경영과 정보연구', publisher: '대한경영정보학회', grade: 'kci' },
-    { date: '2018.12', title: '소셜미디어 인게이지먼트의 문화 간 차이 연구- 미국 내 히스패닉과 비히스패닉 계 비교를 통한', venue: '중남미연구', publisher: '중남미연구소', grade: 'kci' },
-    { date: '2018.10', title: '공급업체와 구매업체의 관계인식이 성과에 미치는 영향에 관한 연구', venue: '경영교육연구', publisher: '한국경영교육학회', grade: 'kci' },
+    { date: '2018.12', title: '소셜미디어 인게이지먼트의 문화 간 차이 연구- 미국 내 히스패닉과 비히스패닉 계 비교를 통한', venue: '중남미연구', publisher: '중남미연구소', doi: '10.17855/jlas.2018.11.37.4.53', grade: 'kci' },
+    { date: '2018.10', title: '공급업체와 구매업체의 관계인식이 성과에 미치는 영향에 관한 연구', venue: '경영교육연구', publisher: '한국경영교육학회', doi: '10.23839/kabe.2018.33.5.1', grade: 'kci' },
     { date: '2018.09', title: '소셜네트워크 분석을 활용한 이문화거리 측정에 관한 연구', venue: '로고스경영연구', publisher: '한국로고스경영학회', grade: 'kci' },
-    { date: '2017.12', title: '조직시민행동이 조직성과에 미치는 영향에 관한 연구', venue: '기업경영리뷰', publisher: 'KNU 기업경영연구소', grade: 'kci' },
+    { date: '2017.12', title: '조직시민행동이 조직성과에 미치는 영향에 관한 연구', venue: '기업경영리뷰', publisher: 'KNU 기업경영연구소', doi: '10.20434/kricm.2017.12.8.4.15', grade: 'kci' },
     { date: '2017.12', title: 'BtoB 기업간 형성된 사회적 자본이 기업성과에 미치는 영향에 관한 연구 - 지식흡수역량의 매개적 조절효과를 중심으로 -', venue: '경영과 정보연구', publisher: '대한경영정보학회', grade: 'kci' },
     { date: '2017.11', title: '공연 경험은 어떻게 측정되는가? - 공연 경험이 즐거움과 재관람의도에 미치는 영향에 관한 연구', venue: '예술경영연구', publisher: '한국예술경영학회', grade: 'kci' },
-    { date: '2017.04', title: '소비자의 지속적인 친환경소비행동을 어떻게 이끌어 낼 수 있는가?', venue: '소비자학연구', publisher: '한국소비자학회', grade: 'kci' },
-    { date: '2016.04', title: '서비스실패의 허용영역과 심각성 지각에 영향을 미치는 요인에 관한 연구', venue: '서비스 연구', publisher: '서비스사이언스학회', grade: 'kci' },
-    { date: '2016.03', title: 'BtoB거래에서의 협업 Quality 측정도구 개발과 조직성과와의 관계 연구', venue: '인적자원관리연구', publisher: '한국인적자원관리학회', grade: 'kci' },
-    { date: '2015.09', title: '지각된 동료의 조직시민행동과 프렌드십이 직무성과에 미치는 영향', venue: '인적자원관리연구', publisher: '한국인적자원관리학회', grade: 'kci' },
-    { date: '2015.03', title: '즐거움이 과연 조직성과에 긍정적인 영향을 미칠까? - 생활협동조합을 중심으로 -', venue: '인적자원관리연구', publisher: '한국인적자원관리학회', grade: 'kci' },
+    { date: '2017.04', title: '소비자의 지속적인 친환경소비행동을 어떻게 이끌어 낼 수 있는가?', venue: '소비자학연구', publisher: '한국소비자학회', doi: '10.35736/jcs.28.2.4', grade: 'kci' },
+    { date: '2016.04', title: '서비스실패의 허용영역과 심각성 지각에 영향을 미치는 요인에 관한 연구', venue: '서비스 연구', publisher: '서비스사이언스학회', doi: '10.18807/jsrs.2016.6.2.215', grade: 'kci' },
+    { date: '2016.03', title: 'BtoB거래에서의 협업 Quality 측정도구 개발과 조직성과와의 관계 연구', venue: '인적자원관리연구', publisher: '한국인적자원관리학회', doi: '10.14396/jhrmr.2016.23.1.365', grade: 'kci' },
+    { date: '2015.09', title: '지각된 동료의 조직시민행동과 프렌드십이 직무성과에 미치는 영향', venue: '인적자원관리연구', publisher: '한국인적자원관리학회', doi: '10.14396/jhrmr.2015.22.3.109', grade: 'kci' },
+    { date: '2015.03', title: '즐거움이 과연 조직성과에 긍정적인 영향을 미칠까? - 생활협동조합을 중심으로 -', venue: '인적자원관리연구', publisher: '한국인적자원관리학회', doi: '10.14396/jhrmr.2015.22.1.171', grade: 'kci' },
     { date: '2014.12', title: '소비자의 공감반응을 끌어낼 수 있는 사회적기업의 사회공헌 활동에 관한 연구', venue: '경영과 정보연구', publisher: '대한경영정보학회', grade: 'kci' },
     { date: '2014.11', title: '참여를 통한 즐거움이 관계품질과 조직성과에 미치는 영향에 관한 연구 – 생활협동조합을 중심으로 –', venue: '경영연구', publisher: '한국산업경영학회', grade: 'kci' },
-    { date: '2008.03', title: 'A Study on the Various Attribute of E-Sport Influencing Flow and Identification', venue: 'Journal of Global Scholars of Marketing Science(마케팅과학연구)', publisher: '한국마케팅과학회', grade: 'kci' },
+    { date: '2008.03', title: 'A Study on the Various Attribute of E-Sport Influencing Flow and Identification', venue: 'Journal of Global Scholars of Marketing Science(마케팅과학연구)', publisher: '한국마케팅과학회', doi: '10.1080/12297119.2008.9707277', grade: 'kci' },
   ];
 
   const PROJECTS = [
@@ -1015,6 +1192,9 @@
   };
   document.querySelectorAll('[data-stat]').forEach(el => {
     el.dataset.target = STATS[el.dataset.stat] ?? 0;
+  });
+  document.querySelectorAll('[data-stat-text]').forEach(el => {
+    el.textContent = STATS[el.dataset.statText] ?? el.textContent;
   });
 
   // ── 숫자 카운트업 ──
@@ -1093,7 +1273,7 @@
             <span class="year-badge shrink-0 mt-0.5">${p.date}</span>
             <div>
               <p class="text-sm font-semibold mb-1">${escapeHtml(p.title)}</p>
-              <p class="text-xs text-slate-500 flex flex-wrap items-center gap-2">${escapeHtml(p.venue)}${p.publisher ? ' · ' + escapeHtml(p.publisher) : ''} ${GRADE_BADGE[p.grade]}</p>
+              <p class="text-xs text-slate-500 flex flex-wrap items-center gap-2">${escapeHtml(p.venue)}${p.publisher ? ' · ' + escapeHtml(p.publisher) : ''} ${GRADE_BADGE[p.grade]}${p.doi ? ` <a class="doi-link" href="https://doi.org/${p.doi}" target="_blank" rel="noopener" aria-label="DOI로 논문 열기">DOI ↗</a>` : ''}</p>
               ${p.note ? `<p class="text-[11px] text-slate-500 mt-1.5 leading-relaxed">${escapeHtml(p.note)}</p>` : ''}
             </div>
           </div>
@@ -1133,6 +1313,36 @@
 
   renderPublications();
 
+  // ── 강의 카드: 구분별 색, 학기 칩, 현재 강의 표시 ──
+  const CURRENT_COURSES = ['경영학원론', '마케팅조사방법론', 'AI활용디지털마케팅_카카오테크포임팩트'];
+  document.querySelectorAll('.ttab-panel > .glass').forEach(card => {
+    const pill = card.querySelector('[class*="-pill"]');
+    const nameEl = card.querySelector('p.font-semibold');
+    const semEl = card.querySelector('p.text-xs');
+    if (!pill || !nameEl || !semEl) return;
+    const kt = pill.textContent.trim();
+    const kind = kt === '선이수과목' ? 'pre' : kt === '전공선택' ? 'sel' : (kt === '석사' || kt === '석·박사') ? 'grad' : 'micro';
+    card.classList.add('course', 'course-' + kind);
+    const m = semEl.textContent.match(/(\d)학기\s*·\s*(\d+)학점/);
+    if (m) {
+      const isNow = CURRENT_COURSES.includes(nameEl.textContent.replace(/\s+/g, ''));
+      if (isNow) card.classList.add('is-now');
+      semEl.className = 'sem-row text-xs text-slate-500';
+      semEl.innerHTML = `<span class="sem sem-${m[1]}">${m[1]}학기</span><span>${m[2]}학점</span>` + (isNow ? '<span class="now"><i></i>현재 강의 중</span>' : '');
+    }
+  });
+
+  // ── 첫 화면 순차 등장 + 섹션 제목 reveal ──
+  if (!prefersReducedMotion) {
+    document.querySelectorAll('#hero > *').forEach((el, i) => { el.classList.add('hero-in'); el.style.setProperty('--i', i); });
+    const revealObs = new IntersectionObserver((es, ob) => {
+      es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); ob.unobserve(en.target); } });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('section:not(#hero) > p.uppercase, section:not(#hero) > h2, section:not(#hero) > h2 + p').forEach((el, i) => {
+      el.classList.add('reveal'); revealObs.observe(el);
+    });
+  }
+
   // ══════════════════════════════════════════
   // 활동 갤러리 — photos 폴더에 사진을 넣고 아래 배열에
   // 한 줄 추가하면 갤러리에 자동 반영됩니다.
@@ -1142,8 +1352,11 @@
   const GALLERY = [
     { src: 'photos/conference-01.jpg', caption: '고교·교육청·대학 연합 진학 콘퍼런스 인사말 (2026.5)', tag: 'outreach' },
     { src: 'photos/conference-02.jpg', caption: '지역대학과 함께하는 연합 진학 콘퍼런스 (2026.5)', tag: 'outreach' },
+    { src: 'photos/conference-03.jpg', caption: '2026년도 전국대학교 입학관련처장(본부장)협의회 정기총회 및 세미나 (제주, 2026.4)', tag: 'outreach' },
     { src: 'photos/overseas-01.jpg', caption: '학생들과 함께한 글로벌 해외연구 프로그램 (외행성, 2025)', tag: 'overseas' },
+    { src: 'photos/overseas-02.jpg', caption: '학생들과 함께한 프랑스 외행성 프로젝트 활동', tag: 'overseas' },
     { src: 'photos/research-01.jpg', caption: '동료 교수진과 공동 연구·프로젝트 수행', tag: 'research' },
+    { src: 'photos/research-02.jpg', caption: '학생들과 함께하는 팀 프로젝트 활동', tag: 'research' },
   ];
   const GTAG_LABEL = { research: '연구활동', overseas: '해외프로젝트', outreach: '대외활동' };
 
